@@ -5,13 +5,12 @@ body {
   background: #ecf0f1;
 }
 
-/* ==== Layout Wrapper Fix ==== */
+/* ==== Layout Wrapper ==== */
 .wrapper {
   display: flex;
   min-height: 100vh;
   background: #ecf0f1;
 }
-
 
 .sidebar {
   width: 220px;
@@ -111,11 +110,14 @@ button:hover {
 
 .modal-box {
   background: #fff;
-  width: 400px;
+  width: 850px;
+  max-width: 95%;
   border-radius: 10px;
   padding: 25px;
   box-shadow: 0 5px 20px rgba(0,0,0,0.25);
   animation: slideUp 0.25s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 .modal-box h2 {
@@ -124,29 +126,40 @@ button:hover {
   margin-top: 0;
 }
 
-.modal-box label {
-  display: block;
+.modal-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px 25px;
   margin-top: 10px;
-  font-weight: 500;
 }
 
-.modal-box input, .modal-box select {
+.modal-form label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.modal-form input,
+.modal-form select {
   width: 100%;
   padding: 8px;
-  margin-top: 4px;
   border: 1px solid #ccc;
   border-radius: 6px;
+  box-sizing: border-box;
 }
 
 .form-actions {
   display: flex;
-  justify-content: space-between;
-  margin-top: 15px;
+  justify-content: flex-end;
+  margin-top: 20px;
+  gap: 10px;
 }
 
 .form-actions button {
-  flex: 1;
-  margin: 0 4px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
 }
 
 .form-actions button.cancel {
@@ -154,6 +167,7 @@ button:hover {
   color: #1e293b;
 }
 
+/* Animations */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -162,4 +176,15 @@ button:hover {
 @keyframes slideUp {
   from { transform: translateY(25px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
+}
+
+/* Responsive untuk layar kecil */
+@media (max-width: 768px) {
+  .modal-box {
+    width: 95%;
+  }
+
+  .modal-form {
+    grid-template-columns: 1fr;
+  }
 }

@@ -38,7 +38,7 @@
             </tr>
           </thead>
           <tbody id="mahasiswaTable">
-            <tr><td colspan="6">Tidak ada data</td></tr>
+            <tr><td colspan="6">Memuat data...</td></tr>
           </tbody>
         </table>
       </div>
@@ -51,35 +51,53 @@
       <h2 id="modalTitle">Tambah/Edit Mahasiswa</h2>
       <input type="hidden" id="mahasiswaId">
 
-      <label>Nama Lengkap</label>
-      <input type="text" id="nama">
+      <div class="modal-form">
+        <div>
+          <label>Nama Lengkap</label>
+          <input type="text" id="nama">
 
-      <label>NIM</label>
-      <input type="text" id="nim">
+          <label>NIM</label>
+          <input type="text" id="nim">
 
-      <label>Email</label>
-      <input type="email" id="email">
+          <label>Email</label>
+          <input type="email" id="email">
 
-      <label>No Telepon</label>
-      <input type="text" id="telepon">
+          <label>No Telepon</label>
+          <input type="text" id="telepon">
 
-      <label>Alamat</label>
-      <input type="text" id="alamat">
+          <label>Alamat</label>
+          <input type="text" id="alamat">
 
-      <label>Jenis Kelamin</label>
-      <select id="gender">
-        <option value="Laki-laki">Laki-laki</option>
-        <option value="Perempuan">Perempuan</option>
-      </select>
+          <label>Tanggal Lahir</label>
+          <input type="date" id="tgl_lahir">
+        </div>
 
-      <label>Semester</label>
-      <input type="number" id="semester">
+        <div>
+          <label>Jenis Kelamin</label>
+          <select id="gender">
+            <option value="Laki-laki">Laki-laki</option>
+            <option value="Perempuan">Perempuan</option>
+          </select>
 
-      <label>Username</label>
-      <input type="text" id="username">
+          <label>Angkatan</label>
+          <input type="number" id="angkatan" min="2000" max="2099">
 
-      <label>Password</label>
-      <input type="password" id="password">
+          <label>Semester</label>
+          <input type="number" id="semester" min="1" max="14">
+
+          <label>Status</label>
+          <select id="status">
+            <option value="Aktif">Aktif</option>
+            <option value="Nonaktif">Nonaktif</option>
+          </select>
+
+          <label>Username</label>
+          <input type="text" id="username">
+
+          <label>Password</label>
+          <input type="password" id="password">
+        </div>
+      </div>
 
       <div class="form-actions">
         <button id="saveBtn">Simpan</button>

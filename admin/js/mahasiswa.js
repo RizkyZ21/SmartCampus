@@ -19,23 +19,23 @@ async function loadMahasiswa() {
             <td>${m.NAMA_LENGKAP}</td>
             <td>${m.NIM}</td>
             <td>${m.EMAIL}</td>
-            <td>${m.SEMESTER || "-"}</td>
+            <td>${m.SEMESTER}</td>
             <td class="action-btns">
-              <button onclick="showEditModal(${m.MAHASISWA_ID}, '${m.NAMA_LENGKAP}', '${m.NIM}', '${m.EMAIL}', '${m.NO_TELEPON || ''}', '${m.ALAMAT || ''}', '${m.JENIS_KELAMIN || ''}', '${m.SEMESTER || ''}')">Edit</button>
+              <button onclick="showEditModal(${m.MAHASISWA_ID}, '${escapeStr(m.NAMA_LENGKAP)}', '${escapeStr(m.NIM)}', '${escapeStr(m.EMAIL)}', '${escapeStr(m.NO_TELEPON || '')}', '${escapeStr(m.ALAMAT || '')}', '${escapeStr(m.TANGGAL_LAHIR || '')}', '${escapeStr(m.JENIS_KELAMIN || '')}', ${m.ANGKATAN || 0}, ${m.SEMESTER || 1}, '${escapeStr(m.STATUS || 'Aktif')}')">Edit</button>
               <button onclick="deleteMahasiswa(${m.MAHASISWA_ID})">Hapus</button>
             </td>
           </tr>`;
         tbody.insertAdjacentHTML("beforeend", tr);
       });
     } else {
-      tbody.innerHTML = "<tr><td colspan='6'>Tidak ada data</td></tr>";
+      tbody.innerHTML = "<tr><td colspan='6'>Tidak ada data mahasiswa</td></tr>";
     }
-  } catch {
+  } catch (err) {
     tbody.innerHTML = "<tr><td colspan='6'>Gagal memuat data</td></tr>";
   }
 }
 
-// ===== Modal =====
+// === Modal Handling ===
 function showAddModal() {
   const modal = document.getElementById("formModal");
   modal.classList.add("show");
@@ -44,18 +44,21 @@ function showAddModal() {
   document.getElementById("saveBtn").onclick = addMahasiswa;
 }
 
-function showEditModal(id, nama, nim, email, telepon, alamat, gender, semester) {
+function showEditModal(id, nama, nim, email, telepon, alamat, tgl, gender, angkatan, semester, status) {
   const modal = document.getElementById("formModal");
   modal.classList.add("show");
   document.getElementById("modalTitle").innerText = "Edit Mahasiswa";
   document.getElementById("mahasiswaId").value = id;
-  document.getElementById("nama").value = nama;
-  document.getElementById("nim").value = nim;
-  document.getElementById("email").value = email;
-  document.getElementById("telepon").value = telepon;
-  document.getElementById("alamat").value = alamat;
+  document.getElementById("nama").value = unescapeStr(nama);
+  document.getElementById("nim").value = unescapeStr(nim);
+  document.getElementById("email").value = unescapeStr(email);
+  document.getElementById("telepon").value = unescapeStr(telepon);
+  document.getElementById("alamat").value = unescapeStr(alamat);
+  document.getElementById("tgl_lahir").value = unescapeStr(tgl);
   document.getElementById("gender").value = gender || "Laki-laki";
-  document.getElementById("semester").value = semester || "";
+  document.getElementById("angkatan").value = angkatan;
+  document.getElementById("semester").value = semester;
+  document.getElementById("status").value = status;
   document.getElementById("saveBtn").onclick = updateMahasiswa;
 }
 
@@ -63,17 +66,23 @@ function closeModal() {
   document.getElementById("formModal").classList.remove("show");
 }
 
-window.onclick = e => {
+// === FIX Popup Auto Close ===
+document.addEventListener("click", e => {
   const modal = document.getElementById("formModal");
-  if (e.target === modal) closeModal();
-};
+  const box = document.querySelector(".modal-box");
+  if (modal.classList.contains("show") && e.target === modal) {
+    closeModal();
+  }
+});
 
+// === Reset Form ===
 function resetForm() {
   document.querySelectorAll(".modal-box input").forEach(i => i.value = "");
   document.getElementById("gender").value = "Laki-laki";
+  document.getElementById("status").value = "Aktif";
 }
 
-// ===== CRUD =====
+// === CRUD ===
 async function addMahasiswa() {
   const payload = getFormData();
   const res = await fetch(baseUrl + "add_mahasiswa.php", {
@@ -103,12 +112,14 @@ async function updateMahasiswa() {
 
 async function deleteMahasiswa(id) {
   if (!confirm("Yakin ingin menghapus mahasiswa ini?")) return;
+
   try {
     const res = await fetch(baseUrl + "delete_mahasiswa.php", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ mahasiswa_id: id })
     });
+
     const data = await res.json();
     alert(data.message);
     if (data.success) loadMahasiswa();
@@ -117,6 +128,7 @@ async function deleteMahasiswa(id) {
   }
 }
 
+// === Helper ===
 function getFormData() {
   return {
     nama_lengkap: document.getElementById("nama").value,
@@ -124,9 +136,20 @@ function getFormData() {
     email: document.getElementById("email").value,
     no_telepon: document.getElementById("telepon").value,
     alamat: document.getElementById("alamat").value,
+    tanggal_lahir: document.getElementById("tgl_lahir").value,
     jenis_kelamin: document.getElementById("gender").value,
+    angkatan: document.getElementById("angkatan").value,
     semester: document.getElementById("semester").value,
+    status: document.getElementById("status").value,
     username: document.getElementById("username").value,
     password: document.getElementById("password").value
   };
+}
+
+// Escape string untuk menghindari error HTML injection
+function escapeStr(str) {
+  return str ? str.replace(/'/g, "\\'").replace(/"/g, '\\"') : "";
+}
+function unescapeStr(str) {
+  return str ? str.replace(/\\'/g, "'").replace(/\\"/g, '"') : "";
 }
