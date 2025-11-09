@@ -4,51 +4,90 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin | Mahasiswa</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/mahasiswa.css">
 </head>
 <body>
-  <div class="sidebar">
-    <h2>Admin</h2>
-    <ul>
-      <li><a href="dashboard.html">Dashboard</a></li>
-      <li><a href="dosen.html">Dosen</a></li>
-      <li><a href="mahasiswa.html" class="active">Mahasiswa</a></li>
-      <li><a href="matakuliah.html">Mata Kuliah</a></li>
-      <li><a href="../index.html">Logout</a></li>
-    </ul>
-  </div>
+  <div class="wrapper">
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <h2>Admin</h2>
+      <ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="dosen.html">Dosen</a></li>
+        <li><a href="mahasiswa.html" class="active">Mahasiswa</a></li>
+        <li><a href="matakuliah.html">Mata Kuliah</a></li>
+        <li><a href="../index.html">Logout</a></li>
+      </ul>
+    </div>
 
-  <div class="content">
-    <h1>Data Mahasiswa</h1>
-    <button>Tambah Mahasiswa</button>
+    <!-- CONTENT -->
+    <div class="content">
+      <h1>Data Mahasiswa</h1>
+      <button onclick="showAddModal()">Tambah Mahasiswa</button>
 
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Nama Lengkap</th>
-            <th>NIM</th>
-            <th>Prodi</th>
-            <th>Email</th>
-            <th>Aksi</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Soraa</td>
-            <td>210202001</td>
-            <td>Teknik Informatika</td>
-            <td>soraa@campus.ac.id</td>
-            <td class="action-btns">
-              <button>Edit</button>
-              <button>Hapus</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Nama Lengkap</th>
+              <th>NIM</th>
+              <th>Email</th>
+              <th>Semester</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="mahasiswaTable">
+            <tr><td colspan="6">Tidak ada data</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
+
+  <!-- MODAL -->
+  <div id="formModal" class="modal">
+    <div class="modal-box">
+      <h2 id="modalTitle">Tambah/Edit Mahasiswa</h2>
+      <input type="hidden" id="mahasiswaId">
+
+      <label>Nama Lengkap</label>
+      <input type="text" id="nama">
+
+      <label>NIM</label>
+      <input type="text" id="nim">
+
+      <label>Email</label>
+      <input type="email" id="email">
+
+      <label>No Telepon</label>
+      <input type="text" id="telepon">
+
+      <label>Alamat</label>
+      <input type="text" id="alamat">
+
+      <label>Jenis Kelamin</label>
+      <select id="gender">
+        <option value="Laki-laki">Laki-laki</option>
+        <option value="Perempuan">Perempuan</option>
+      </select>
+
+      <label>Semester</label>
+      <input type="number" id="semester">
+
+      <label>Username</label>
+      <input type="text" id="username">
+
+      <label>Password</label>
+      <input type="password" id="password">
+
+      <div class="form-actions">
+        <button id="saveBtn">Simpan</button>
+        <button class="cancel" onclick="closeModal()">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/mahasiswa.js"></script>
 </body>
 </html>

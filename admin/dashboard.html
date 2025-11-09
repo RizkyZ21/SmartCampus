@@ -4,23 +4,50 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin | Dashboard</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
 </head>
 <body>
-  <div class="sidebar">
-    <h2>Admin</h2>
-    <ul>
-      <li><a href="dashboard.html">Dashboard</a></li>
-      <li><a href="dosen.html">Dosen</a></li>
-      <li><a href="mahasiswa.html">Mahasiswa</a></li>
-      <li><a href="matakuliah.html">Mata Kuliah</a></li>
-      <li><a href="../index.html">Logout</a></li>
-    </ul>
+  <div class="wrapper">
+    <!-- ========== SIDEBAR ========== -->
+    <div class="sidebar">
+      <h2>Admin</h2>
+      <ul>
+        <li><a href="dashboard.html" class="active">Dashboard</a></li>
+        <li><a href="dosen.html">Dosen</a></li>
+        <li><a href="mahasiswa.html">Mahasiswa</a></li>
+        <li><a href="matakuliah.html">Mata Kuliah</a></li>
+        <li><a href="../index.html">Logout</a></li>
+      </ul>
+    </div>
+
+    <!-- ========== CONTENT ========== -->
+    <div class="content">
+      <h1>Dashboard Admin</h1>
+
+      <div class="cards">
+        <div class="card" id="totalDosen">Dosen: 0</div>
+        <div class="card" id="totalMahasiswa">Mahasiswa: 0</div>
+        <div class="card" id="totalMatkul">Mata Kuliah: 0</div>
+      </div>
+    </div>
   </div>
 
-  <div class="content">
-    <h1>Dashboard Admin</h1>
-    <p>Selamat datang di sistem SmartCampus Admin.</p>
-  </div>
+  <!-- ========== SCRIPT DASHBOARD ========== -->
+  <script>
+    async function loadDashboard() {
+      try {
+        const res = await fetch("../api/admin/dashboard_count.php");
+        const data = await res.json();
+
+        document.getElementById("totalDosen").textContent = "Dosen: " + (data.dosen || 0);
+        document.getElementById("totalMahasiswa").textContent = "Mahasiswa: " + (data.mahasiswa || 0);
+        document.getElementById("totalMatkul").textContent = "Mata Kuliah: " + (data.matkul || 0);
+      } catch (err) {
+        console.error("Gagal memuat data dashboard:", err);
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", loadDashboard);
+  </script>
 </body>
 </html>

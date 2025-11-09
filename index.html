@@ -27,14 +27,6 @@
     </form>
   </div>
 
-  <script>
-    function login(e) {
-      e.preventDefault();
-      const role = document.getElementById('role').value;
-      if (role === 'admin') window.location.href = 'admin/dashboard.html';
-      else if (role === 'dosen') window.location.href = 'dosen/dashboard.html';
-      else window.location.href = 'mahasiswa/dashboard.html';
-    }
-  </script>
+  <script src="assets/js/login.js"></script>
 </body>
 </html>
