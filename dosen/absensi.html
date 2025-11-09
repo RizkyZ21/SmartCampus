@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dosen | Absensi Mahasiswa</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="sidebar">
+    <h2>Dosen Panel</h2>
+    <ul>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="absensi.html" class="active">Absensi Mahasiswa</a></li>
+      <li><a href="nilai.html">Nilai Mahasiswa</a></li>
+      <li><a href="laporan.html">Laporan</a></li>
+      <li><a href="../index.html">Logout</a></li>
+    </ul>
+  </div>
+
+  <div class="content">
+    <h1>Absensi Mahasiswa</h1>
+    <button>Tambah Absensi</button>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Nama Mahasiswa</th>
+            <th>Mata Kuliah</th>
+            <th>Tanggal</th>
+            <th>Status Kehadiran</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Soraa</td>
+            <td>Pemrograman Web</td>
+            <td>08-11-2025</td>
+            <td>Hadir</td>
+            <td class="action-btns">
+              <button>Edit</button>
+              <button>Hapus</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>
