@@ -1,17 +1,13 @@
-/* ==================== GLOBAL ==================== */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
   background: #ecf0f1;
 }
 
-/* ==== Layout Wrapper Fix ==== */
 .wrapper {
   display: flex;
   min-height: 100vh;
-  background: #ecf0f1;
 }
-
 
 .sidebar {
   width: 220px;
@@ -49,7 +45,6 @@ body {
   padding: 20px;
 }
 
-/* ==================== TABEL ==================== */
 .table-container {
   background: white;
   padding: 15px;
@@ -90,7 +85,7 @@ button:hover {
   gap: 5px;
 }
 
-/* ==================== POPUP MODAL ==================== */
+/* Modal */
 .modal {
   display: none;
   position: fixed;
@@ -98,7 +93,7 @@ button:hover {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0,0,0,0.4);
   justify-content: center;
   align-items: center;
   z-index: 999;
@@ -106,60 +101,43 @@ button:hover {
 
 .modal.show {
   display: flex;
-  animation: fadeIn 0.25s ease-in-out;
 }
 
 .modal-box {
   background: #fff;
-  width: 400px;
+  width: 800px;
+  max-width: 95%;
   border-radius: 10px;
   padding: 25px;
   box-shadow: 0 5px 20px rgba(0,0,0,0.25);
-  animation: slideUp 0.25s ease;
+}
+
+.modal-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
 }
 
 .modal-box h2 {
   text-align: center;
   color: #1e293b;
-  margin-top: 0;
 }
 
-.modal-box label {
-  display: block;
-  margin-top: 10px;
-  font-weight: 500;
-}
-
-.modal-box input, .modal-box select {
+.modal-box input, .modal-box select, .modal-box textarea {
   width: 100%;
   padding: 8px;
-  margin-top: 4px;
   border: 1px solid #ccc;
   border-radius: 6px;
 }
 
 .form-actions {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   margin-top: 15px;
-}
-
-.form-actions button {
-  flex: 1;
-  margin: 0 4px;
+  gap: 10px;
 }
 
 .form-actions button.cancel {
   background: #cbd5e1;
   color: #1e293b;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideUp {
-  from { transform: translateY(25px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
 }

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin | Jadwal Kuliah</title>
+  <link rel="stylesheet" href="css/jadwal.css">
+</head>
+<body>
+  <div class="wrapper">
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <h2>Admin</h2>
+      <ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="dosen.html">Dosen</a></li>
+        <li><a href="mahasiswa.html">Mahasiswa</a></li>
+        <li><a href="matakuliah.html">Mata Kuliah</a></li>
+        <li><a href="jadwal.html" class="active">Jadwal</a></li>
+        <li><a href="../index.html">Logout</a></li>
+      </ul>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content">
+      <h1>Manajemen Jadwal Kuliah</h1>
+      <button onclick="showAddModal()">Tambah Jadwal</button>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Mata Kuliah</th>
+              <th>Dosen</th>
+              <th>Ruang</th>
+              <th>Hari</th>
+              <th>Jam</th>
+              <th>Tahun Ajaran</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="jadwalTable">
+            <tr><td colspan="8">Memuat data...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL -->
+  <div id="formModal" class="modal">
+    <div class="modal-box">
+      <h2 id="modalTitle">Tambah/Edit Jadwal</h2>
+      <input type="hidden" id="jadwalId">
+
+      <label>Mata Kuliah</label>
+      <select id="matkul_id"></select>
+
+      <label>Dosen Pengajar</label>
+      <select id="dosen_id"></select>
+
+      <label>Ruang Kelas</label>
+      <select id="ruang_id"></select>
+
+      <label>Hari</label>
+      <select id="hari">
+        <option>Senin</option><option>Selasa</option><option>Rabu</option>
+        <option>Kamis</option><option>Jumat</option><option>Sabtu</option>
+      </select>
+
+      <label>Jam Mulai</label>
+      <input type="time" id="jam_mulai">
+
+      <label>Jam Selesai</label>
+      <input type="time" id="jam_selesai">
+
+      <label>Tahun Ajaran</label>
+      <input type="text" id="tahun_ajaran" placeholder="2025/2026">
+
+      <div class="form-actions">
+        <button id="saveBtn">Simpan</button>
+        <button class="cancel" onclick="closeModal()">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/jadwal.js"></script>
+</body>
+</html>

@@ -9,15 +9,7 @@ if (!$conn) {
   exit;
 }
 
-$sql = "
-  SELECT M.MATKUL_ID, M.KODE_MATKUL, M.NAMA_MATKUL, M.SKS, M.SEMESTER,
-         M.DOSEN_ID, D.NAMA_LENGKAP AS NAMA_DOSEN, 
-         M.JENIS_MATKUL, M.DESKRIPSI
-  FROM MATA_KULIAH M
-  LEFT JOIN DOSEN D ON M.DOSEN_ID = D.DOSEN_ID
-  ORDER BY M.MATKUL_ID DESC
-";
-
+$sql = "SELECT DOSEN_ID, NAMA_LENGKAP FROM DOSEN ORDER BY NAMA_LENGKAP ASC";
 $parse = oci_parse($conn, $sql);
 oci_execute($parse);
 
@@ -26,10 +18,7 @@ while ($row = oci_fetch_assoc($parse)) {
   $data[] = $row;
 }
 
-echo json_encode([
-  "success" => true,
-  "data" => $data
-]);
+echo json_encode(["success" => true, "data" => $data]);
 
 oci_free_statement($parse);
 oci_close($conn);

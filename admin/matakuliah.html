@@ -16,6 +16,7 @@
         <li><a href="dosen.html">Dosen</a></li>
         <li><a href="mahasiswa.html">Mahasiswa</a></li>
         <li><a href="matakuliah.html" class="active">Mata Kuliah</a></li>
+        <li><a href="jadwal.html">Jadwal</a></li>
         <li><a href="../index.html">Logout</a></li>
       </ul>
     </div>
@@ -33,12 +34,13 @@
               <th>Kode</th>
               <th>Nama Mata Kuliah</th>
               <th>SKS</th>
+              <th>Semester</th>
               <th>Dosen Pengampu</th>
               <th>Aksi</th>
             </tr>
           </thead>
           <tbody id="matkulTable">
-            <tr><td colspan="6">Tidak ada data</td></tr>
+            <tr><td colspan="7">Memuat data...</td></tr>
           </tbody>
         </table>
       </div>
@@ -51,26 +53,34 @@
       <h2 id="modalTitle">Tambah/Edit Mata Kuliah</h2>
       <input type="hidden" id="matkulId">
 
-      <label>Kode Mata Kuliah</label>
-      <input type="text" id="kode">
+      <div class="modal-form">
+        <div>
+          <label>Kode Mata Kuliah</label>
+          <input type="text" id="kode_matkul">
 
-      <label>Nama Mata Kuliah</label>
-      <input type="text" id="nama">
+          <label>Nama Mata Kuliah</label>
+          <input type="text" id="nama_matkul">
 
-      <label>SKS</label>
-      <input type="number" id="sks">
+          <label>SKS</label>
+          <input type="number" id="sks" min="1" max="6">
 
-      <label>Semester</label>
-      <input type="number" id="semester">
+          <label>Semester</label>
+          <input type="number" id="semester" min="1" max="14">
+        </div>
 
-      <label>Dosen ID</label>
-      <input type="number" id="dosenId">
+        <div>
+          <label>Dosen Pengampu</label>
+          <select id="dosen_id">
+            <option value="">Memuat daftar dosen...</option>
+          </select>
 
-      <label>Jenis Mata Kuliah</label>
-      <input type="text" id="jenis">
+          <label>Jenis Mata Kuliah</label>
+          <input type="text" id="jenis_matkul" placeholder="Wajib / Pilihan">
 
-      <label>Deskripsi</label>
-      <textarea id="deskripsi"></textarea>
+          <label>Deskripsi</label>
+          <textarea id="deskripsi" rows="4" placeholder="Deskripsi mata kuliah"></textarea>
+        </div>
+      </div>
 
       <div class="form-actions">
         <button id="saveBtn">Simpan</button>
