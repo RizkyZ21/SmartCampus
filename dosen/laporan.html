@@ -4,63 +4,53 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dosen | Laporan</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/laporan.css">
 </head>
 <body>
-  <div class="sidebar">
-    <h2>Dosen Panel</h2>
-    <ul>
-      <li><a href="dashboard.html">Dashboard</a></li>
-      <li><a href="absensi.html">Absensi Mahasiswa</a></li>
-      <li><a href="nilai.html">Nilai Mahasiswa</a></li>
-      <li><a href="laporan.html" class="active">Laporan</a></li>
-      <li><a href="../index.html">Logout</a></li>
-    </ul>
-  </div>
-
-  <div class="content">
-    <h1>Laporan Rekap Nilai & Absensi</h1>
-    <p>Pilih mata kuliah untuk melihat rekap:</p>
-    <select>
-      <option>Pemrograman Web</option>
-      <option>Basis Data</option>
-      <option>Jaringan Komputer</option>
-    </select>
-
-    <h3>Rekap Nilai</h3>
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>Nama Mahasiswa</th>
-            <th>Nilai Akhir</th>
-            <th>Grade</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Soraa</td><td>87.6</td><td>A</td></tr>
-          <tr><td>Rizky</td><td>80.2</td><td>B+</td></tr>
-        </tbody>
-      </table>
+  <div class="wrapper">
+    <div class="sidebar">
+      <h2>Dosen</h2>
+      <ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="absensi.html">Absensi</a></li>
+        <li><a href="nilai.html">Nilai</a></li>
+        <li><a href="laporan.html" class="active">Laporan</a></li>
+        <li><a href="../index.html">Logout</a></li>
+      </ul>
     </div>
 
-    <h3>Rekap Absensi</h3>
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>Nama Mahasiswa</th>
-            <th>Hadir</th>
-            <th>Izin</th>
-            <th>Alpa</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Soraa</td><td>12</td><td>1</td><td>0</td></tr>
-          <tr><td>Rizky</td><td>11</td><td>0</td><td>2</td></tr>
-        </tbody>
-      </table>
+    <div class="content">
+      <h1>Laporan Perkuliahan</h1>
+      <p id="namaDosen"></p>
+
+      <label for="matkulSelect">Pilih Mata Kuliah:</label>
+      <select id="matkulSelect">
+        <option value="">-- Pilih Mata Kuliah --</option>
+      </select>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Nama Mahasiswa</th>
+              <th>NIM</th>
+              <th>Hadir</th>
+              <th>Izin</th>
+              <th>Sakit</th>
+              <th>Alpa</th>
+              <th>Nilai Akhir</th>
+              <th>Grade</th>
+            </tr>
+          </thead>
+          <tbody id="laporanTable">
+            <tr><td colspan="9">Silakan pilih mata kuliah...</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
+
+  <script src="js/laporan.js"></script>
 </body>
 </html>
