@@ -1,0 +1,88 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #ecf0f1;
+}
+
+.wrapper {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 220px;
+  background: #2c3e50;
+  color: white;
+  padding: 20px;
+}
+
+.sidebar h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin: 15px 0;
+}
+
+.sidebar ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+.sidebar ul li a.active,
+.sidebar ul li a:hover {
+  text-decoration: underline;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+}
+
+.table-container {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+th {
+  background: #34495e;
+  color: white;
+}
+
+button {
+  background: #2c3e50;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #34495e;
+}
+
+input.inputNilai {
+  width: 70px;
+  padding: 4px;
+  text-align: center;
+}
