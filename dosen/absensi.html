@@ -3,52 +3,78 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dosen | Absensi Mahasiswa</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Dosen | Absensi</title>
+  <link rel="stylesheet" href="css/absensi.css">
 </head>
 <body>
-  <div class="sidebar">
-    <h2>Dosen Panel</h2>
-    <ul>
-      <li><a href="dashboard.html">Dashboard</a></li>
-      <li><a href="absensi.html" class="active">Absensi Mahasiswa</a></li>
-      <li><a href="nilai.html">Nilai Mahasiswa</a></li>
-      <li><a href="laporan.html">Laporan</a></li>
-      <li><a href="../index.html">Logout</a></li>
-    </ul>
-  </div>
+  <div class="wrapper">
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <h2>Dosen</h2>
+      <ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="absensi.html" class="active">Absensi</a></li>
+        <li><a href="nilai.html">Nilai</a></li>
+        <li><a href="laporan.html">Laporan</a></li>
+        <li><a href="../index.html">Logout</a></li>
+      </ul>
+    </div>
 
-  <div class="content">
-    <h1>Absensi Mahasiswa</h1>
-    <button>Tambah Absensi</button>
+    <!-- CONTENT -->
+    <div class="content">
+      <h1>Absensi Dosen</h1>
+      <p id="namaDosen"></p>
 
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Nama Mahasiswa</th>
-            <th>Mata Kuliah</th>
-            <th>Tanggal</th>
-            <th>Status Kehadiran</th>
-            <th>Aksi</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Soraa</td>
-            <td>Pemrograman Web</td>
-            <td>08-11-2025</td>
-            <td>Hadir</td>
-            <td class="action-btns">
-              <button>Edit</button>
-              <button>Hapus</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <h2>Pilih Jadwal Mengajar</h2>
+      <select id="jadwalSelect">
+        <option value="">-- Pilih Jadwal --</option>
+      </select>
+
+      <div class="actions">
+        <button id="btnBuka">Buka Absensi</button>
+        <button id="btnTutup">Tutup Absensi</button>
+      </div>
+
+      <h2>Sesi Aktif</h2>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Mata Kuliah</th>
+              <th>Hari</th>
+              <th>Jam</th>
+              <th>Status</th>
+              <th>Tanggal</th>
+            </tr>
+          </thead>
+          <tbody id="sesiAktifTable">
+            <tr><td colspan="6">Memuat data...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Riwayat Sesi</h2>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Mata Kuliah</th>
+              <th>Hari</th>
+              <th>Jam</th>
+              <th>Status</th>
+              <th>Tanggal</th>
+            </tr>
+          </thead>
+          <tbody id="riwayatTable">
+            <tr><td colspan="6">Memuat data...</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
+
+  <script src="js/absensi.js"></script>
 </body>
 </html>
