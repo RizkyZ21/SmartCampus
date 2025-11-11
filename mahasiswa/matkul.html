@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mahasiswa | Absen</title>
+  <title>Mahasiswa | Jadwal</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,37 +11,30 @@
     <h2>Mahasiswa</h2>
     <ul>
       <li><a href="dashboard.html">Dashboard</a></li>
-      <li><a href="jadwal.html">Jadwal</a></li>
+      <li><a href="absensi.html">Absen</a></li>
+      <li><a href="matkul.html" class="active">Jadwal</a></li>
       <li><a href="nilai.html">Nilai</a></li>
-      <li><a href="absen.html" class="active">Absen</a></li>
+      <li><a href="laporan.html">Laporan</a></li>
       <li><a href="../index.html">Logout</a></li>
     </ul>
   </div>
 
   <div class="content">
-    <h1>Absensi Kuliah</h1>
-    <p>Pilih Mata Kuliah:</p>
-    <select>
-      <option>Pemrograman Web</option>
-      <option>Basis Data</option>
-      <option>Jaringan Komputer</option>
-    </select>
-
-    <button style="margin-left:10px;">Absen Sekarang</button>
-
-    <h3>Riwayat Absensi</h3>
+    <h1>Jadwal Kuliah</h1>
     <div class="table-container">
       <table>
         <thead>
           <tr>
-            <th>Tanggal</th>
+            <th>Hari</th>
+            <th>Jam</th>
             <th>Mata Kuliah</th>
-            <th>Status</th>
+            <th>Dosen</th>
+            <th>Ruangan</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td>08-11-2025</td><td>Pemrograman Web</td><td>Hadir</td></tr>
-          <tr><td>06-11-2025</td><td>Basis Data</td><td>Hadir</td></tr>
+          <tr><td>Senin</td><td>08.00 - 10.00</td><td>Pemrograman Web</td><td>Frizzki</td><td>Lab 1</td></tr>
+          <tr><td>Rabu</td><td>10.00 - 12.00</td><td>Basis Data</td><td>Rina M</td><td>Lab 2</td></tr>
         </tbody>
       </table>
     </div>

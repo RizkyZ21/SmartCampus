@@ -4,7 +4,8 @@ header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json; charset=utf-8");
 
-require_once("../config.php");
+// --- FIXED: Gunakan __DIR__ agar path ke config.php selalu benar
+require_once(__DIR__ . "/../config.php");
 
 $conn = getOracleConnection();
 if (!$conn) {
@@ -21,7 +22,6 @@ if (empty($username) || empty($password)) {
     exit;
 }
 
-// query mahasiswa
 $sql = "SELECT u.USER_ID, u.USERNAME, u.EMAIL,
                m.MAHASISWA_ID, m.NIM, m.NAMA_LENGKAP, m.SEMESTER, u.ROLE
         FROM USERS u
