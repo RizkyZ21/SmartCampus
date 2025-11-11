@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mahasiswa | Laporan</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="sidebar">
+    <h2>Mahasiswa</h2>
+    <ul>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="absensi.html">Absen</a></li>
+      <li><a href="matkul.html">Matkul</a></li>
+      <li><a href="nilai.html">Nilai</a></li>
+      <li><a href="laporan.html" class="active">Laporan</a></li>
+      <li><a href="../index.html">Logout</a></li>
+    </ul>
+  </div>
+
+  <div class="content">
+    <h1>Laporan Mahasiswa</h1>
+    <p>Rekap data kehadiran dan nilai seluruh mata kuliah.</p>
+
+    <section class="laporan-section">
+      <h2>Rekap Absensi (%)</h2>
+      <table id="tabelAbsensi">
+        <thead>
+          <tr>
+            <th>Mata Kuliah</th>
+            <th>Dosen</th>
+            <th>Jumlah Hadir</th>
+            <th>Total Pertemuan</th>
+            <th>Persentase Kehadiran</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td colspan="5">Memuat data...</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="laporan-section">
+      <h2>Rekap Nilai</h2>
+      <table id="tabelNilai">
+        <thead>
+          <tr>
+            <th>Kode</th>
+            <th>Mata Kuliah</th>
+            <th>Tugas</th>
+            <th>UTS</th>
+            <th>UAS</th>
+            <th>Nilai Akhir</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td colspan="6">Memuat data...</td></tr>
+        </tbody>
+      </table>
+
+      <div id="rataRataBox" class="rata-rata-box">
+        <strong>Rata-rata Nilai Akhir:</strong> <span id="rataRata">-</span>
+      </div>
+    </section>
+  </div>
+
+  <script src="js/laporan.js"></script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mahasiswa | Jadwal</title>
+  <title>Mahasiswa | Mata Kuliah</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,7 +12,7 @@
     <ul>
       <li><a href="dashboard.html">Dashboard</a></li>
       <li><a href="absensi.html">Absen</a></li>
-      <li><a href="matkul.html" class="active">Jadwal</a></li>
+      <li><a href="matkul.html" class="active">Matkul</a></li>
       <li><a href="nilai.html">Nilai</a></li>
       <li><a href="laporan.html">Laporan</a></li>
       <li><a href="../index.html">Logout</a></li>
@@ -20,24 +20,27 @@
   </div>
 
   <div class="content">
-    <h1>Jadwal Kuliah</h1>
-    <div class="table-container">
-      <table>
+    <h1>Daftar Mata Kuliah</h1>
+    <p>Pilih mata kuliah yang ingin Anda ambil semester ini.</p>
+
+    <section class="matkul-section">
+      <table id="tabelMatkul">
         <thead>
           <tr>
-            <th>Hari</th>
-            <th>Jam</th>
-            <th>Mata Kuliah</th>
+            <th>Kode</th>
+            <th>Nama Mata Kuliah</th>
+            <th>SKS</th>
             <th>Dosen</th>
-            <th>Ruangan</th>
+            <th>Aksi</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td>Senin</td><td>08.00 - 10.00</td><td>Pemrograman Web</td><td>Frizzki</td><td>Lab 1</td></tr>
-          <tr><td>Rabu</td><td>10.00 - 12.00</td><td>Basis Data</td><td>Rina M</td><td>Lab 2</td></tr>
+          <tr><td colspan="5">Memuat daftar mata kuliah...</td></tr>
         </tbody>
       </table>
-    </div>
+    </section>
   </div>
+
+  <script src="js/matkul.js"></script>
 </body>
 </html>

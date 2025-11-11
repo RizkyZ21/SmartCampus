@@ -1,38 +1,45 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const nim = localStorage.getItem("nim") || prompt("Masukkan NIM:");
-  const apiUrl = "../api/mahasiswa/get_jadwal.php";
+document.addEventListener("DOMContentLoaded", function() {
+  // Ambil ID mahasiswa dari sessionStorage (bukan localStorage)
+  const mahasiswaId = sessionStorage.getItem("mahasiswa_id");
 
-  fetch(apiUrl, {
+  if (!mahasiswaId) {
+    alert("ID Mahasiswa tidak ditemukan. Silakan login ulang.");
+    window.location.href = "../index.html";
+    return;
+  }
+
+  fetch("http://localhost/SmartCampus/api/mahasiswa/dashboard/jadwal.php", {
     method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({ nim })
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ mahasiswa_id: mahasiswaId })
   })
-    .then(res => res.json())
-    .then(data => {
-      const tbody = document.getElementById("jadwal-body");
-      tbody.innerHTML = "";
+  .then(res => res.json())
+  .then(data => {
+    const tbody = document.querySelector("#tabelJadwal tbody");
+    tbody.innerHTML = "";
 
-      if (data.success) {
-        data.data.forEach(row => {
-          const tr = document.createElement("tr");
-          tr.innerHTML = `
-            <td>${row.KODE_MATKUL}</td>
-            <td>${row.NAMA_MATKUL}</td>
-            <td>${row.SKS}</td>
-            <td>${row.DOSEN}</td>
-            <td>${row.NAMA_RUANG}</td>
-            <td>${row.HARI}</td>
-            <td>${row.JAM_MULAI} - ${row.JAM_SELESAI}</td>
-            <td>${row.TAHUN_AJARAN}</td>
-          `;
-          tbody.appendChild(tr);
-        });
-      } else {
-        tbody.innerHTML = `<tr><td colspan="8">${data.message}</td></tr>`;
-      }
-    })
-    .catch(err => {
-      document.getElementById("jadwal-body").innerHTML =
-        `<tr><td colspan="8">Terjadi kesalahan: ${err.message}</td></tr>`;
+    if (!data.success || data.data.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="6">Tidak ada jadwal kuliah hari ini.</td></tr>`;
+      return;
+    }
+
+    data.data.forEach(item => {
+      const row = `
+        <tr>
+          <td>${item.KODE_MATKUL}</td>
+          <td>${item.NAMA_MATKUL}</td>
+          <td>${item.DOSEN}</td>
+          <td>${item.HARI}</td>
+          <td>${item.JAM_MULAI} - ${item.JAM_SELESAI}</td>
+          <td>${item.RUANGAN}</td>
+        </tr>
+      `;
+      tbody.insertAdjacentHTML("beforeend", row);
     });
+  })
+  .catch(err => {
+    console.error("Error:", err);
+    const tbody = document.querySelector("#tabelJadwal tbody");
+    tbody.innerHTML = `<tr><td colspan="6">Gagal memuat data jadwal.</td></tr>`;
+  });
 });

@@ -1,8 +1,3 @@
-// =====================================================
-// LOGIN HANDLER UNTUK SMARTCAMPUS
-// by ChatGPT (GPT-5)
-// =====================================================
-
 async function login(event) {
   event.preventDefault();
 

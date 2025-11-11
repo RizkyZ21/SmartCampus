@@ -12,7 +12,7 @@
     <ul>
       <li><a href="dashboard.html" class="active">Dashboard</a></li>
       <li><a href="absensi.html">Absen</a></li>
-      <li><a href="matkul.html">Jadwal</a></li>
+      <li><a href="matkul.html">Matkul</a></li>
       <li><a href="nilai.html">Nilai</a></li>
       <li><a href="laporan.html">Laporan</a></li>
       <li><a href="../index.html">Logout</a></li>
@@ -22,6 +22,27 @@
   <div class="content">
     <h1>Dashboard Mahasiswa</h1>
     <p>Selamat datang di portal SmartCampus Mahasiswa.</p>
+
+    <section class="jadwal-section">
+      <h2>Jadwal Kuliah Hari Ini</h2>
+      <table id="tabelJadwal">
+        <thead>
+          <tr>
+            <th>Kode</th>
+            <th>Mata Kuliah</th>
+            <th>Dosen</th>
+            <th>Hari</th>
+            <th>Jam</th>
+            <th>Ruangan</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td colspan="6">Memuat jadwal...</td></tr>
+        </tbody>
+      </table>
+    </section>
   </div>
+
+  <script src="js/dashboard.js"></script>
 </body>
 </html>

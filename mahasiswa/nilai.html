@@ -12,7 +12,7 @@
     <ul>
       <li><a href="dashboard.html">Dashboard</a></li>
       <li><a href="absensi.html">Absen</a></li>
-      <li><a href="matkul.html">Jadwal</a></li>
+      <li><a href="matkul.html">Matkul</a></li>
       <li><a href="nilai.html" class="active">Nilai</a></li>
       <li><a href="laporan.html">Laporan</a></li>
       <li><a href="../index.html">Logout</a></li>
@@ -20,23 +20,32 @@
   </div>
 
   <div class="content">
-    <h1>Nilai Akademik</h1>
-    <div class="table-container">
-      <table>
+    <h1>Rekap Nilai Mahasiswa</h1>
+    <p>Berikut daftar nilai dari semua mata kuliah yang telah Anda ambil.</p>
+
+    <section class="nilai-section">
+      <table id="tabelNilai">
         <thead>
           <tr>
+            <th>Kode</th>
             <th>Mata Kuliah</th>
-            <th>SKS</th>
+            <th>Tugas</th>
+            <th>UTS</th>
+            <th>UAS</th>
             <th>Nilai Akhir</th>
-            <th>Grade</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td>Pemrograman Web</td><td>3</td><td>87.6</td><td>A</td></tr>
-          <tr><td>Basis Data</td><td>3</td><td>80.2</td><td>B+</td></tr>
+          <tr><td colspan="6">Memuat data nilai...</td></tr>
         </tbody>
       </table>
-    </div>
+
+      <div id="rataRataBox" class="rata-rata-box">
+        <strong>Rata-rata Nilai Akhir:</strong> <span id="rataRata">-</span>
+      </div>
+    </section>
   </div>
+
+  <script src="js/nilai.js"></script>
 </body>
 </html>
