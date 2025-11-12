@@ -129,4 +129,30 @@ document.addEventListener("DOMContentLoaded", () => {
     .catch((err) => {
       tbody.innerHTML = `<tr><td colspan="5">Gagal memuat riwayat: ${err.message}</td></tr>`;
     });
+
+  // ==================================================
+  // 🔹 FUNGSI UNTUK TUTUP SESI (KHUSUS DOSEN)
+  // ==================================================
+  window.tutupSesi = function (sesiId) {
+    if (!confirm("Apakah Anda yakin ingin menutup sesi absensi ini?\nMahasiswa yang belum absen akan otomatis ditandai Alpa.")) {
+      return;
+    }
+
+    fetch("http://localhost/SmartCampus/api/dosen/absensi/tutup_sesi.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ sesi_id: sesiId })
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        alert(result.message);
+        if (result.success) {
+          // Refresh tampilan setelah sesi ditutup
+          window.location.reload();
+        }
+      })
+      .catch((err) => {
+        alert("Gagal menutup sesi: " + err.message);
+      });
+  };
 });

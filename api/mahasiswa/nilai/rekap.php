@@ -4,6 +4,11 @@ header("Content-Type: application/json; charset=utf-8");
 require_once(__DIR__ . '/../../config.php');
 
 $conn = getOracleConnection();
+if (!$conn) {
+    echo json_encode(["success" => false, "message" => "Koneksi database gagal"]);
+    exit;
+}
+
 oci_execute(oci_parse($conn, "ALTER SESSION SET CURRENT_SCHEMA=UAS"));
 
 $data = json_decode(file_get_contents("php://input"), true);
@@ -18,10 +23,10 @@ $sql = "
 SELECT 
     mk.KODE_MATKUL,
     mk.NAMA_MATKUL,
-    n.NILAI_TUGAS,
-    n.NILAI_UTS,
-    n.NILAI_UAS,
-    n.NILAI_AKHIR
+    NVL(n.NILAI_TUGAS, 0) AS NILAI_TUGAS,
+    NVL(n.NILAI_UTS, 0) AS NILAI_UTS,
+    NVL(n.NILAI_UAS, 0) AS NILAI_UAS,
+    NVL(n.NILAI_AKHIR, 0) AS NILAI_AKHIR
 FROM NILAI n
 JOIN MATA_KULIAH mk ON n.MATKUL_ID = mk.MATKUL_ID
 WHERE n.MAHASISWA_ID = :mid
@@ -34,8 +39,18 @@ oci_execute($stmt);
 
 $data = [];
 while ($row = oci_fetch_assoc($stmt)) {
-    $data[] = $row;
+    $data[] = [
+        "KODE_MATKUL"   => $row["KODE_MATKUL"],
+        "NAMA_MATKUL"   => $row["NAMA_MATKUL"],
+        "NILAI_TUGAS"   => $row["NILAI_TUGAS"] ?? 0,
+        "NILAI_UTS"     => $row["NILAI_UTS"] ?? 0,
+        "NILAI_UAS"     => $row["NILAI_UAS"] ?? 0,
+        "NILAI_AKHIR"   => $row["NILAI_AKHIR"] ?? 0
+    ];
 }
 
 echo json_encode(["success" => true, "data" => $data]);
+
+oci_free_statement($stmt);
+oci_close($conn);
 ?>

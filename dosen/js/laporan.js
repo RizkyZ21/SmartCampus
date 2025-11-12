@@ -40,7 +40,7 @@ async function loadMatkul() {
 
 async function loadLaporan(matkulId) {
   const tbody = document.getElementById("laporanTable");
-  tbody.innerHTML = `<tr><td colspan="9">Memuat data...</td></tr>`;
+  tbody.innerHTML = `<tr><td colspan="7">Memuat data...</td></tr>`;
 
   try {
     const res = await fetch(baseUrl + "get_laporan_mahasiswa.php", {
@@ -53,24 +53,28 @@ async function loadLaporan(matkulId) {
     tbody.innerHTML = "";
     if (data.success && data.data.length > 0) {
       data.data.forEach((m, i) => {
+        // ✅ pastikan data tidak undefined
+        const hadir = m.HADIR ?? 0;
+        const alpa = m.ALPA ?? 0;
+        const akhir = m.NILAI_AKHIR ?? 0;
+        const grade = m.GRADE ?? "-";
+
         tbody.innerHTML += `
           <tr>
             <td>${i + 1}</td>
             <td>${m.NAMA_LENGKAP}</td>
             <td>${m.NIM}</td>
-            <td>${m.HADIR}</td>
-            <td>${m.IZIN}</td>
-            <td>${m.SAKIT}</td>
-            <td>${m.ALPA}</td>
-            <td>${m.NILAI_AKHIR}</td>
-            <td>${m.GRADE}</td>
+            <td>${hadir}</td>
+            <td>${alpa}</td>
+            <td>${akhir}</td>
+            <td>${grade}</td>
           </tr>
         `;
       });
     } else {
-      tbody.innerHTML = `<tr><td colspan="9">Tidak ada data laporan</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="7">Tidak ada data laporan</td></tr>`;
     }
   } catch {
-    tbody.innerHTML = `<tr><td colspan="9">Gagal memuat laporan</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="7">Gagal memuat laporan</td></tr>`;
   }
 }

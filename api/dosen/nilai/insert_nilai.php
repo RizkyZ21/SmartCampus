@@ -45,8 +45,15 @@ oci_bind_by_name($stid, ":akhir", $nilai_akhir);
 oci_bind_by_name($stid, ":grade", $grade);
 
 if (oci_execute($stid)) {
+    // 🔹 panggil procedure biar nilai akhir & grade terupdate otomatis
+    $proc = oci_parse($conn, "BEGIN sp_rekap_nilai(:mhs, :matkul); END;");
+    oci_bind_by_name($proc, ":mhs", $mahasiswa_id);
+    oci_bind_by_name($proc, ":matkul", $matkul_id);
+    oci_execute($proc);
+    oci_free_statement($proc);
+
     oci_commit($conn);
-    echo json_encode(["success" => true, "message" => "Nilai berhasil ditambahkan"]);
+    echo json_encode(["success" => true, "message" => "Nilai berhasil ditambahkan dan diperbarui"]);
 } else {
     echo json_encode(["success" => false, "message" => "Gagal menambah nilai"]);
 }

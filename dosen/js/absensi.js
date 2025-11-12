@@ -60,22 +60,33 @@ async function bukaSesi() {
 
 // ========== TUTUP SESI ==========
 async function tutupSesi() {
-  const tabel = document.getElementById("sesiAktifTable");
-  const sesiId = tabel.dataset.sesiId;
-  if (!sesiId) return alert("Tidak ada sesi aktif!");
-  try {
-    const res = await fetch(baseUrl + "tutup_sesi.php", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ sesi_id: sesiId })
-    });
-    const data = await res.json();
-    alert(data.message);
-    loadSesiAktif();
-    loadRiwayat();
-  } catch {
-    alert("Gagal menutup sesi!");
+  // ambil sesi aktif langsung dari tabel (bisa lebih dari 1)
+  const sesiTable = document.querySelectorAll("#sesiAktifTable tr[data-sesi-id]");
+  if (sesiTable.length === 0) return alert("Tidak ada sesi aktif!");
+
+  for (const row of sesiTable) {
+    const sesiId = row.dataset.sesiId;
+    if (!sesiId) continue;
+
+    const konfirmasi = confirm(`Tutup sesi absensi untuk ${row.children[1].textContent}?`);
+    if (!konfirmasi) continue;
+
+    try {
+      const res = await fetch(baseUrl + "tutup_sesi.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sesi_id: sesiId })
+      });
+      const data = await res.json();
+      alert(data.message);
+    } catch {
+      alert("Gagal menutup sesi!");
+    }
   }
+
+  // reload data setelah semua sesi diproses
+  loadSesiAktif();
+  loadRiwayat();
 }
 
 // ========== LIHAT SESI AKTIF ==========
@@ -91,21 +102,21 @@ async function loadSesiAktif() {
     const data = await res.json();
     tbody.innerHTML = "";
     if (data.success && data.data.length > 0) {
-      const sesi = data.data[0];
-      document.getElementById("sesiAktifTable").dataset.sesiId = sesi.SESI_ID;
-      const tr = `
-        <tr>
-          <td>1</td>
-          <td>${sesi.NAMA_MATKUL}</td>
-          <td>${sesi.HARI}</td>
-          <td>${sesi.JAM_MULAI} - ${sesi.JAM_SELESAI}</td>
-          <td>${sesi.STATUS}</td>
-          <td>${sesi.TANGGAL}</td>
-        </tr>`;
-      tbody.innerHTML = tr;
+      data.data.forEach((s, i) => {
+        const tr = document.createElement("tr");
+        tr.dataset.sesiId = s.SESI_ID;
+        tr.innerHTML = `
+          <td>${i + 1}</td>
+          <td>${s.NAMA_MATKUL}</td>
+          <td>${s.HARI}</td>
+          <td>${s.JAM_MULAI} - ${s.JAM_SELESAI}</td>
+          <td>${s.STATUS}</td>
+          <td>${s.TANGGAL}</td>
+        `;
+        tbody.appendChild(tr);
+      });
     } else {
       tbody.innerHTML = "<tr><td colspan='6'>Tidak ada sesi aktif</td></tr>";
-      document.getElementById("sesiAktifTable").dataset.sesiId = "";
     }
   } catch {
     tbody.innerHTML = "<tr><td colspan='6'>Gagal memuat data</td></tr>";
