@@ -49,7 +49,6 @@ oci_bind_by_name($stid, ":mahasiswa_id", $mahasiswa_id);
 oci_bind_by_name($stid, ":matkul_id", $matkul_id);
 
 if (oci_execute($stid)) {
-    // 🔹 panggil procedure untuk rekap otomatis
     $proc = oci_parse($conn, "BEGIN sp_rekap_nilai(:mhs, :matkul); END;");
     oci_bind_by_name($proc, ":mhs", $mahasiswa_id);
     oci_bind_by_name($proc, ":matkul", $matkul_id);

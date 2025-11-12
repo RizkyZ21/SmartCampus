@@ -6,7 +6,6 @@ require_once(__DIR__ . '/../../config.php');
 
 $conn = getOracleConnection();
 
-// pastikan pakai schema UAS
 oci_execute(oci_parse($conn, "ALTER SESSION SET CURRENT_SCHEMA=UAS"));
 
 $data = json_decode(file_get_contents("php://input"), true);
@@ -17,7 +16,6 @@ if (!$mahasiswa_id) {
     exit;
 }
 
-// 🔧 Perbaikan: gunakan LEFT JOIN agar matkul tanpa absensi tetap muncul
 $sql = "
 SELECT 
     mk.NAMA_MATKUL,

@@ -9,7 +9,6 @@ $data = json_decode(file_get_contents("php://input"), true);
 $mahasiswa_id  = $data['mahasiswa_id'];
 
 try {
-    // 🔹 Ambil USER_ID dari mahasiswa
     $getUser = oci_parse($conn, "SELECT USER_ID FROM MAHASISWA WHERE MAHASISWA_ID = :MAHASISWA_ID");
     oci_bind_by_name($getUser, ":MAHASISWA_ID", $mahasiswa_id);
     oci_execute($getUser);
@@ -21,7 +20,6 @@ try {
         exit;
     }
 
-    // 🔹 Update USERS
     $sql_user = "
         UPDATE USERS 
         SET USERNAME = :USERNAME,
@@ -37,7 +35,6 @@ try {
     oci_bind_by_name($stmt_user, ":USER_ID", $user_id);
     oci_execute($stmt_user, OCI_NO_AUTO_COMMIT);
 
-    // 🔹 Update MAHASISWA
     $sql_mhs = "
         UPDATE MAHASISWA 
         SET NIM = :NIM,

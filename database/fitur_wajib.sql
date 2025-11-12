@@ -1,9 +1,5 @@
 ALTER SESSION SET CURRENT_SCHEMA = UAS;
 
-------------------------------------------------------------
--- 1️⃣ TRIGGER : UPDATE OTOMATIS JUMLAH SKS MAHASISWA
-------------------------------------------------------------
-
 -- Tambahkan kolom TOTAL_SKS jika belum ada
 BEGIN
   EXECUTE IMMEDIATE 'ALTER TABLE MAHASISWA ADD (TOTAL_SKS NUMBER DEFAULT 0)';

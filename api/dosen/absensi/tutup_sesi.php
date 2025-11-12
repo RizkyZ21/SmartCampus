@@ -14,7 +14,6 @@ if (!$sesi_id) {
     exit;
 }
 
-// 🔹 Tutup sesi absensi
 $sql_close = "UPDATE SESI_ABSENSI SET STATUS = 'CLOSED', DITUTUP_PADA = SYSDATE WHERE SESI_ID = :sid";
 $stmt_close = oci_parse($conn, $sql_close);
 oci_bind_by_name($stmt_close, ":sid", $sesi_id);
@@ -25,7 +24,6 @@ if (!oci_execute($stmt_close)) {
     exit;
 }
 
-// 🔹 Ambil JADWAL_ID dari sesi ini
 $sql_jadwal = "SELECT JADWAL_ID FROM SESI_ABSENSI WHERE SESI_ID = :sid";
 $stmt_jadwal = oci_parse($conn, $sql_jadwal);
 oci_bind_by_name($stmt_jadwal, ":sid", $sesi_id);
@@ -38,7 +36,6 @@ if (!$jadwal_id) {
     exit;
 }
 
-// 🔹 Tambahkan absensi otomatis 'Alpa' untuk mahasiswa yang belum absen
 $sql_insert_alpa = "
 INSERT INTO ABSENSI (ABSENSI_ID, SESI_ID, JADWAL_ID, MAHASISWA_ID, TANGGAL, STATUS_KEHADIRAN, CREATED_AT)
 SELECT SEQ_ABSENSI.NEXTVAL, :sid, :jid, n.MAHASISWA_ID, SYSDATE, 'Alpa', SYSDATE

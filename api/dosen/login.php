@@ -21,7 +21,6 @@ if (empty($username) || empty($password)) {
     exit;
 }
 
-// cari dosen
 $sql = "SELECT u.USER_ID, u.USERNAME, u.EMAIL, d.DOSEN_ID, d.NAMA_LENGKAP, u.ROLE
         FROM USERS u
         JOIN DOSEN d ON u.USER_ID = d.USER_ID

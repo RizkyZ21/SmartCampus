@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("btnTutup").addEventListener("click", tutupSesi);
 });
 
-// ========== LOAD JADWAL ==========
 async function loadJadwal() {
   const select = document.getElementById("jadwalSelect");
   select.innerHTML = `<option value="">Memuat...</option>`;
@@ -39,7 +38,6 @@ async function loadJadwal() {
   }
 }
 
-// ========== BUKA SESI ==========
 async function bukaSesi() {
   const jadwal_id = document.getElementById("jadwalSelect").value;
   if (!jadwal_id) return alert("Pilih jadwal terlebih dahulu!");
@@ -58,9 +56,7 @@ async function bukaSesi() {
   }
 }
 
-// ========== TUTUP SESI ==========
 async function tutupSesi() {
-  // ambil sesi aktif langsung dari tabel (bisa lebih dari 1)
   const sesiTable = document.querySelectorAll("#sesiAktifTable tr[data-sesi-id]");
   if (sesiTable.length === 0) return alert("Tidak ada sesi aktif!");
 
@@ -84,12 +80,10 @@ async function tutupSesi() {
     }
   }
 
-  // reload data setelah semua sesi diproses
   loadSesiAktif();
   loadRiwayat();
 }
 
-// ========== LIHAT SESI AKTIF ==========
 async function loadSesiAktif() {
   const tbody = document.getElementById("sesiAktifTable");
   tbody.innerHTML = "<tr><td colspan='6'>Memuat...</td></tr>";
@@ -123,7 +117,6 @@ async function loadSesiAktif() {
   }
 }
 
-// ========== RIWAYAT SESI ==========
 async function loadRiwayat() {
   const tbody = document.getElementById("riwayatTable");
   tbody.innerHTML = "<tr><td colspan='6'>Memuat...</td></tr>";

@@ -14,7 +14,6 @@ if (!$mahasiswa_id) {
     exit;
 }
 
-// Ambil daftar matkul yang belum diambil mahasiswa
 $sql = "
 SELECT 
     mk.MATKUL_ID,

@@ -9,7 +9,6 @@ if (!$conn) {
     exit;
 }
 
-// Pastikan schema UAS aktif
 oci_execute(oci_parse($conn, "ALTER SESSION SET CURRENT_SCHEMA=UAS"));
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
@@ -25,7 +24,6 @@ if (!$mahasiswa_id) {
     exit;
 }
 
-// 🔹 Ambil jadwal berdasarkan matkul yang dimiliki mahasiswa (via tabel NILAI)
 $sql = "
 SELECT 
     j.JADWAL_ID,

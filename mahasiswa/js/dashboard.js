@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function() {
-  // Ambil ID mahasiswa dari sessionStorage (bukan localStorage)
   const mahasiswaId = sessionStorage.getItem("mahasiswa_id");
 
   if (!mahasiswaId) {

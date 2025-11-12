@@ -25,10 +25,8 @@ $alamat = $data['alamat'] ?? '';
 $gender = $data['jenis_kelamin'] ?? 'Laki-laki';
 
 try {
-    // Mulai transaksi
-    oci_execute(oci_parse($conn, "BEGIN NULL; END;")); // dummy start
+    oci_execute(oci_parse($conn, "BEGIN NULL; END;"));
 
-    // Insert ke USERS
     $sqlUser = "
         INSERT INTO USERS (USER_ID, USERNAME, PASSWORD, EMAIL, ROLE, IS_ACTIVE, CREATED_AT)
         VALUES (SEQ_USERS.NEXTVAL, :username, :password, :email, 'dosen', 1, SYSDATE)
@@ -41,7 +39,6 @@ try {
     oci_bind_by_name($stmtUser, ":user_id", $user_id, 32);
     oci_execute($stmtUser);
 
-    // Insert ke DOSEN pakai USER_ID yang baru
     $sqlDosen = "
     INSERT INTO DOSEN (DOSEN_ID, USER_ID, NIP, NAMA_LENGKAP, EMAIL, NO_TELEPON, ALAMAT, TANGGAL_LAHIR, JENIS_KELAMIN, CREATED_AT)
     VALUES (SEQ_DOSEN.NEXTVAL, :user_id, :nip, :nama, :email, :telepon, :alamat, TO_DATE(:tgl_lahir, 'YYYY-MM-DD'), :gender, SYSDATE)

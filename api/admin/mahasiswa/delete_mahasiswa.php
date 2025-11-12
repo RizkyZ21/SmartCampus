@@ -14,7 +14,6 @@ if (!$data || empty($data['mahasiswa_id'])) {
 $mahasiswa_id = $data['mahasiswa_id'];
 
 try {
-    // Ambil USER_ID berdasarkan MAHASISWA_ID
     $getUser = oci_parse($conn, "SELECT USER_ID FROM MAHASISWA WHERE MAHASISWA_ID = :MAHASISWA_ID");
     oci_bind_by_name($getUser, ":MAHASISWA_ID", $mahasiswa_id);
     oci_execute($getUser);
@@ -26,7 +25,6 @@ try {
         exit;
     }
 
-    // Hapus dari USERS (akan otomatis hapus dari MAHASISWA karena ON DELETE CASCADE)
     $sql = "DELETE FROM USERS WHERE USER_ID = :USER_ID";
     $stmt = oci_parse($conn, $sql);
     oci_bind_by_name($stmt, ":USER_ID", $user_id);

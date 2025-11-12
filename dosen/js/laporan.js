@@ -53,7 +53,6 @@ async function loadLaporan(matkulId) {
     tbody.innerHTML = "";
     if (data.success && data.data.length > 0) {
       data.data.forEach((m, i) => {
-        // ✅ pastikan data tidak undefined
         const hadir = m.HADIR ?? 0;
         const alpa = m.ALPA ?? 0;
         const akhir = m.NILAI_AKHIR ?? 0;

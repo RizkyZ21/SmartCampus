@@ -9,21 +9,18 @@ if (!$conn) {
 }
 
 try {
-  // Hitung dosen
   $sqlDosen = "SELECT COUNT(*) AS TOTAL FROM DOSEN";
   $stid = oci_parse($conn, $sqlDosen);
   oci_execute($stid);
   $row = oci_fetch_assoc($stid);
   $totalDosen = $row['TOTAL'];
 
-  // Hitung mahasiswa
   $sqlMhs = "SELECT COUNT(*) AS TOTAL FROM MAHASISWA";
   $stid = oci_parse($conn, $sqlMhs);
   oci_execute($stid);
   $row = oci_fetch_assoc($stid);
   $totalMahasiswa = $row['TOTAL'];
 
-  // Hitung mata kuliah
   $sqlMatkul = "SELECT COUNT(*) AS TOTAL FROM MATA_KULIAH";
   $stid = oci_parse($conn, $sqlMatkul);
   oci_execute($stid);

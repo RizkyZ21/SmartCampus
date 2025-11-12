@@ -9,9 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const sesiDiv = document.getElementById("sesiAktif");
   const tbody = document.querySelector("#tabelAbsensi tbody");
 
-  // ==================================================
-  // 🔹 CEK SEMUA SESI AKTIF
-  // ==================================================
   fetch("http://localhost/SmartCampus/api/mahasiswa/absensi/sesi_aktif.php", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -26,9 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // 🔁 Loop semua sesi aktif
       for (const sesi of data.data) {
-        // 🔍 Cek apakah mahasiswa ini sudah absen di sesi ini
         const cekRes = await fetch("http://localhost/SmartCampus/api/mahasiswa/absensi/cek_status.php", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -37,7 +32,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const cekData = await cekRes.json();
         const sudahAbsen = cekData.success && cekData.data?.SUDAH_ABSEN === true;
 
-        // 🔹 Tambahkan card sesi ke tampilan (tambah terus, bukan timpa)
         sesiDiv.insertAdjacentHTML(
           "beforeend",
           `
@@ -54,9 +48,6 @@ document.addEventListener("DOMContentLoaded", () => {
         );
       }
 
-      // ==================================================
-      // 🔹 PASANG EVENT TOMBOL ABSENSI UNTUK TIAP SESI
-      // ==================================================
       document.querySelectorAll(".btn-absen").forEach((btn) => {
         btn.addEventListener("click", () => {
           const sesiId = btn.dataset.sesi;
@@ -94,9 +85,6 @@ document.addEventListener("DOMContentLoaded", () => {
       sesiDiv.innerHTML = `<p style="color:red;">Gagal memuat sesi absensi (${err.message})</p>`;
     });
 
-  // ==================================================
-  // 🔹 RIWAYAT ABSENSI
-  // ==================================================
   fetch("http://localhost/SmartCampus/api/mahasiswa/absensi/history.php", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -130,9 +118,6 @@ document.addEventListener("DOMContentLoaded", () => {
       tbody.innerHTML = `<tr><td colspan="5">Gagal memuat riwayat: ${err.message}</td></tr>`;
     });
 
-  // ==================================================
-  // 🔹 FUNGSI UNTUK TUTUP SESI (KHUSUS DOSEN)
-  // ==================================================
   window.tutupSesi = function (sesiId) {
     if (!confirm("Apakah Anda yakin ingin menutup sesi absensi ini?\nMahasiswa yang belum absen akan otomatis ditandai Alpa.")) {
       return;
@@ -147,7 +132,6 @@ document.addEventListener("DOMContentLoaded", () => {
       .then((result) => {
         alert(result.message);
         if (result.success) {
-          // Refresh tampilan setelah sesi ditutup
           window.location.reload();
         }
       })

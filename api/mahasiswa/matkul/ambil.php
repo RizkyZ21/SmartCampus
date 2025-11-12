@@ -15,7 +15,6 @@ if (!$mahasiswa_id || !$matkul_id) {
     exit;
 }
 
-// Cek apakah sudah diambil
 $cek = oci_parse($conn, "SELECT 1 FROM NILAI WHERE MAHASISWA_ID = :mid AND MATKUL_ID = :mkid");
 oci_bind_by_name($cek, ":mid", $mahasiswa_id);
 oci_bind_by_name($cek, ":mkid", $matkul_id);
@@ -26,7 +25,6 @@ if (oci_fetch($cek)) {
     exit;
 }
 
-// Tambahkan ke tabel NILAI
 $sql = "
 INSERT INTO NILAI (NILAI_ID, MAHASISWA_ID, MATKUL_ID, TAHUN_AJARAN, NILAI_TUGAS, NILAI_UTS, NILAI_UAS, NILAI_AKHIR, STATUS, CREATED_AT)
 VALUES (SEQ_NILAI.NEXTVAL, :mid, :mkid, '2025/2026', NULL, NULL, NULL, NULL, 'Aktif', SYSDATE)

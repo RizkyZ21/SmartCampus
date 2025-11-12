@@ -19,14 +19,12 @@ if (!$dosen_id) {
 }
 
 try {
-  // === Total Mata Kuliah ===
   $q1 = oci_parse($conn, "SELECT COUNT(*) AS TOTAL FROM MATA_KULIAH WHERE DOSEN_ID = :id");
   oci_bind_by_name($q1, ":id", $dosen_id);
   oci_execute($q1);
   $row1 = oci_fetch_assoc($q1);
   $total_matkul = $row1["TOTAL"] ?? 0;
 
-  // === Total Mahasiswa ===
   $q2 = oci_parse($conn, "
     SELECT COUNT(DISTINCT N.MAHASISWA_ID) AS TOTAL
     FROM NILAI N
@@ -38,7 +36,6 @@ try {
   $row2 = oci_fetch_assoc($q2);
   $total_mahasiswa = $row2["TOTAL"] ?? 0;
 
-  // === Jadwal Berdasarkan Filter Hari ===
   $sql_jadwal = "
     SELECT 
       J.JADWAL_ID,

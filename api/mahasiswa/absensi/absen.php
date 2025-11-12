@@ -15,7 +15,6 @@ if (!$mahasiswa_id || !$sesi_id) {
     exit;
 }
 
-// 🔹 Ambil data sesi aktif
 $sql_sesi = "SELECT SESI_ID, JADWAL_ID, STATUS FROM SESI_ABSENSI WHERE SESI_ID = :sid";
 $stmt_sesi = oci_parse($conn, $sql_sesi);
 oci_bind_by_name($stmt_sesi, ":sid", $sesi_id);
@@ -31,7 +30,6 @@ if (strtoupper($sesi["STATUS"]) !== 'OPEN') {
     exit;
 }
 
-// 🔹 Ambil MATKUL_ID dari JADWAL
 $sql_matkul = "SELECT MATKUL_ID FROM JADWAL_KULIAH WHERE JADWAL_ID = :jid";
 $stmt_matkul = oci_parse($conn, $sql_matkul);
 oci_bind_by_name($stmt_matkul, ":jid", $sesi["JADWAL_ID"]);
@@ -45,7 +43,6 @@ if (!$row_matkul) {
 
 $matkul_id = $row_matkul["MATKUL_ID"];
 
-// 🔒 Cek apakah mahasiswa benar-benar mengambil matkul ini
 $sql_ambil = "SELECT COUNT(*) AS JUMLAH FROM NILAI WHERE MAHASISWA_ID = :mid AND MATKUL_ID = :mkid";
 $stmt_ambil = oci_parse($conn, $sql_ambil);
 oci_bind_by_name($stmt_ambil, ":mid", $mahasiswa_id);
@@ -58,7 +55,6 @@ if ($row_ambil["JUMLAH"] == 0) {
     exit;
 }
 
-// 🔹 Cek apakah sudah absen sebelumnya
 $sql_check = "SELECT COUNT(*) AS JUMLAH FROM ABSENSI WHERE MAHASISWA_ID = :mid AND SESI_ID = :sid";
 $check = oci_parse($conn, $sql_check);
 oci_bind_by_name($check, ":mid", $mahasiswa_id);
@@ -70,7 +66,6 @@ if ($row && $row["JUMLAH"] > 0) {
     exit;
 }
 
-// 🔹 Simpan absensi
 $sql_insert = "
 INSERT INTO ABSENSI (
     ABSENSI_ID, SESI_ID, JADWAL_ID, MAHASISWA_ID, TANGGAL, STATUS_KEHADIRAN, CREATED_AT

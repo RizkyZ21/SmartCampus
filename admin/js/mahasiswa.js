@@ -66,7 +66,6 @@ function closeModal() {
   document.getElementById("formModal").classList.remove("show");
 }
 
-// === FIX Popup Auto Close ===
 document.addEventListener("click", e => {
   const modal = document.getElementById("formModal");
   const box = document.querySelector(".modal-box");
@@ -146,7 +145,6 @@ function getFormData() {
   };
 }
 
-// Escape string untuk menghindari error HTML injection
 function escapeStr(str) {
   return str ? str.replace(/'/g, "\\'").replace(/"/g, '\\"') : "";
 }

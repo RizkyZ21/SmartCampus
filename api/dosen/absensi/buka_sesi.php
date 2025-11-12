@@ -19,7 +19,6 @@ if (!$dosen_id || !$jadwal_id) {
   exit;
 }
 
-// Cek apakah ada sesi OPEN aktif
 $cek = oci_parse($conn, "SELECT COUNT(*) AS CNT FROM SESI_ABSENSI WHERE DOSEN_ID = :dosen_id AND JADWAL_ID = :jadwal_id AND STATUS = 'OPEN'");
 oci_bind_by_name($cek, ":dosen_id", $dosen_id);
 oci_bind_by_name($cek, ":jadwal_id", $jadwal_id);
@@ -30,7 +29,6 @@ if ($row["CNT"] > 0) {
   exit;
 }
 
-// Insert sesi baru
 $sql = "INSERT INTO SESI_ABSENSI (SESI_ID, JADWAL_ID, DOSEN_ID, STATUS) 
         VALUES (SEQ_SESI_ABSENSI.NEXTVAL, :jadwal_id, :dosen_id, 'OPEN')";
 $stid = oci_parse($conn, $sql);

@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", function() {
     return;
   }
 
-  // 🔹 Rekap Absensi
   fetch("http://localhost/SmartCampus/api/mahasiswa/laporan/rekap_absensi.php", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -40,7 +39,6 @@ document.addEventListener("DOMContentLoaded", function() {
       `<tr><td colspan="5">Gagal memuat data absensi.</td></tr>`;
   });
 
-  // 🔹 Rekap Nilai
   fetch("http://localhost/SmartCampus/api/mahasiswa/laporan/rekap_nilai.php", {
     method: "POST",
     headers: { "Content-Type": "application/json" },

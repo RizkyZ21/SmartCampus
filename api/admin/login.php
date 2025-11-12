@@ -12,7 +12,6 @@ if (!$conn) {
     exit;
 }
 
-// baca input JSON
 $input = json_decode(file_get_contents("php://input"), true);
 $username = trim($input['username'] ?? '');
 $password = trim($input['password'] ?? '');
@@ -22,7 +21,6 @@ if (empty($username) || empty($password)) {
     exit;
 }
 
-// query user role admin
 $sql = "SELECT USER_ID, USERNAME, EMAIL, ROLE
         FROM USERS
         WHERE USERNAME = :username AND PASSWORD = :password AND ROLE = 'admin' AND IS_ACTIVE = 1";

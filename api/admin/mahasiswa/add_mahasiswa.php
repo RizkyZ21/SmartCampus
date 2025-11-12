@@ -25,7 +25,6 @@ try {
     $semester       = $data['semester'];
     $status         = $data['status'] ?? 'Aktif';
 
-    // 1️⃣ Insert ke USERS
     $sql_user = "
         INSERT INTO USERS (USER_ID, USERNAME, PASSWORD, EMAIL, ROLE, CREATED_AT)
         VALUES (SEQ_USERS.NEXTVAL, :USERNAME, :PASSWORD, :EMAIL, 'mahasiswa', SYSDATE)
@@ -38,7 +37,6 @@ try {
     oci_bind_by_name($stmt_user, ":NEW_USER_ID", $new_user_id, -1, SQLT_INT);
     oci_execute($stmt_user, OCI_NO_AUTO_COMMIT);
 
-    // 2️⃣ Insert ke MAHASISWA
     $sql_mhs = "
         INSERT INTO MAHASISWA (
             MAHASISWA_ID, USER_ID, NIM, NAMA_LENGKAP, EMAIL,

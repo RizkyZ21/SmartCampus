@@ -1,9 +1,3 @@
-------------------------------------------------------------
--- SMARTCAMPUS UAS2 DATABASE SETUP (FINAL)
--- Buat oleh ChatGPT (GPT-5)
--- Untuk Oracle Database
-------------------------------------------------------------
-
 -- =========================================================
 -- 1. CREATE USER
 -- =========================================================
@@ -30,7 +24,7 @@ GRANT UNLIMITED TABLESPACE TO uas;
 ALTER SESSION SET CURRENT_SCHEMA = uas;
 
 ------------------------------------------------------------
--- 4. DROP TABLES (jika sudah ada sebelumnya)
+-- 4. DROP TABLES
 ------------------------------------------------------------
 BEGIN
   EXECUTE IMMEDIATE 'DROP TABLE ABSENSI CASCADE CONSTRAINTS';

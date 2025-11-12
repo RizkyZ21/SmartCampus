@@ -14,7 +14,6 @@ if (!$mahasiswa_id) {
     exit;
 }
 
-// 🔹 Ambil semua sesi absensi yang sedang OPEN untuk matkul yang diambil mahasiswa
 $sql = "
 SELECT 
     sa.SESI_ID,

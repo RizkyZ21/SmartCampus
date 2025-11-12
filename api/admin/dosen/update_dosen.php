@@ -38,7 +38,6 @@ try {
         exit;
     }
 
-    // Update USERS
     $sql_user = "
         UPDATE USERS 
         SET USERNAME = :USERNAME,
@@ -54,7 +53,6 @@ try {
     oci_bind_by_name($stmt_user, ":USER_ID", $user_id);
     oci_execute($stmt_user, OCI_NO_AUTO_COMMIT);
 
-    // Update DOSEN
     $sql_dosen = "
         UPDATE DOSEN 
         SET NIP = :NIP,

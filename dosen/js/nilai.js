@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// === Load daftar matkul dosen ===
 async function loadMatkul() {
   const select = document.getElementById("matkulSelect");
   select.innerHTML = `<option value="">Memuat...</option>`;
@@ -39,7 +38,6 @@ async function loadMatkul() {
   }
 }
 
-// === Load daftar mahasiswa & nilai ===
 async function loadNilai(matkulId) {
   const tbody = document.getElementById("nilaiTable");
   tbody.innerHTML = `<tr><td colspan="9">Memuat data...</td></tr>`;
@@ -79,7 +77,6 @@ async function loadNilai(matkulId) {
   }
 }
 
-// === Hitung nilai akhir & grade ===
 function hitungNilai(tugas, uts, uas) {
   const akhir = tugas * 0.3 + uts * 0.3 + uas * 0.4;
   let grade = "E";
@@ -90,7 +87,6 @@ function hitungNilai(tugas, uts, uas) {
   return { akhir: akhir.toFixed(2), grade };
 }
 
-// === Simpan nilai (insert/update otomatis) ===
 async function simpanNilai(mahasiswa_id, matkul_id) {
   const tugas = parseFloat(document.getElementById(`tugas_${mahasiswa_id}`).value) || 0;
   const uts = parseFloat(document.getElementById(`uts_${mahasiswa_id}`).value) || 0;
@@ -104,7 +100,6 @@ async function simpanNilai(mahasiswa_id, matkul_id) {
   const payload = { mahasiswa_id, matkul_id, nilai_tugas: tugas, nilai_uts: uts, nilai_uas: uas };
 
   try {
-    // Coba update dulu
     let res = await fetch(baseUrl + "update_nilai.php", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -112,7 +107,6 @@ async function simpanNilai(mahasiswa_id, matkul_id) {
     });
     let data = await res.json();
 
-    // Kalau gagal update, berarti belum ada data → insert
     if (!data.success) {
       res = await fetch(baseUrl + "insert_nilai.php", {
         method: "POST",

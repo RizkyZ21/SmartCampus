@@ -36,7 +36,6 @@ document.addEventListener("DOMContentLoaded", function() {
       tbody.insertAdjacentHTML("beforeend", row);
     });
 
-    // Event ambil matkul
     document.querySelectorAll(".btn-ambil").forEach(btn => {
       btn.addEventListener("click", function() {
         const matkulId = this.getAttribute("data-id");

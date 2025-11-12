@@ -18,7 +18,6 @@ if (!$data || empty($data['dosen_id'])) {
 $dosen_id = $data['dosen_id'];
 
 try {
-    // 🔹 Ambil USER_ID berdasarkan DOSEN_ID
     $getUser = oci_parse($conn, "SELECT USER_ID FROM DOSEN WHERE DOSEN_ID = :DOSEN_ID");
     oci_bind_by_name($getUser, ":DOSEN_ID", $dosen_id);
     oci_execute($getUser);
@@ -30,13 +29,11 @@ try {
         exit;
     }
 
-    // 🔹 Hapus dari USERS → otomatis hapus DOSEN (karena ON DELETE CASCADE)
     $sql = "DELETE FROM USERS WHERE USER_ID = :USER_ID";
     $stmt = oci_parse($conn, $sql);
     oci_bind_by_name($stmt, ":USER_ID", $user_id);
     oci_execute($stmt, OCI_NO_AUTO_COMMIT);
 
-    // 🔹 Commit transaksi
     oci_commit($conn);
 
     echo json_encode(["success" => true, "message" => "Dosen berhasil dihapus"]);

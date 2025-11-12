@@ -10,7 +10,6 @@ async function login(event) {
     return;
   }
 
-  // Tentukan endpoint API berdasarkan role
   let apiUrl = "";
   switch (role) {
     case "admin":
@@ -41,10 +40,8 @@ async function login(event) {
 
       alert(result.message);
 
-      // Simpan ke localStorage (data lengkap)
       localStorage.setItem("userData", JSON.stringify(data));
 
-      // Simpan ke sessionStorage (khusus untuk dashboard)
       if (role === "admin") {
         sessionStorage.setItem("admin_id", data.USER_ID);
         sessionStorage.setItem("username_admin", data.USERNAME);
@@ -57,7 +54,6 @@ async function login(event) {
         sessionStorage.setItem("nama_mahasiswa", data.NAMA_LENGKAP);
       }
 
-      // Redirect sesuai role
       if (role === "admin") window.location.href = "admin/dashboard.html";
       else if (role === "dosen") window.location.href = "dosen/dashboard.html";
       else if (role === "mahasiswa") window.location.href = "mahasiswa/dashboard.html";
