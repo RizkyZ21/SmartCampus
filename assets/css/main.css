@@ -1,45 +1,129 @@
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f4f4f4;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: linear-gradient(135deg, #3b82f6, #1e40af);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(10px);
 }
 
+/* Card glass modern */
 .login-container {
-  width: 300px;
-  margin: 10% auto;
-  padding: 20px;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 0 10px #ccc;
+  width: 350px;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.25);
   text-align: center;
+  animation: fadeIn 0.7s ease;
 }
 
 .login-container h2 {
   margin-bottom: 20px;
-  color: #333;
+  color: #ffffff;
+  font-size: 24px;
+  letter-spacing: 1px;
+  font-weight: 600;
 }
 
+/* Form layout */
 .login-container form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
 }
 
-.login-container input, .login-container select {
-  padding: 8px;
-  border: 1px solid #bbb;
-  border-radius: 5px;
-}
-
-.login-container button {
-  background: #2c3e50;
-  color: white;
-  padding: 10px;
+/* Input modern */
+.login-container input {
+  padding: 12px;
+  border-radius: 12px;
   border: none;
-  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.85);
+  font-size: 14px;
+  outline: none;
+  box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.15);
+  transition: 0.25s;
+}
+
+.login-container input:focus {
+  background: #ffffff;
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.7);
+  transform: scale(1.02);
+}
+
+/* === Dropdown Modern === */
+.login-container select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background: rgba(255, 255, 255, 0.85);
+  border: none;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.15);
+  color: #1e3a8a;
+  font-weight: 500;
   cursor: pointer;
+  transition: 0.2s ease;
+  position: relative;
+
+  /* Custom arrow */
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%231e3a8a" height="22" viewBox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 18px;
+  padding-right: 40px;
+}
+
+.login-container select:hover {
+  background: #ffffff;
+  transform: scale(1.02);
+}
+
+.login-container select:focus {
+  outline: none;
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.7);
+}
+
+/* Tombol futuristik */
+.login-container button {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  transition: 0.25s ease;
+  box-shadow: 0 6px 14px rgba(37, 99, 235, 0.4);
 }
 
 .login-container button:hover {
-  background: #34495e;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.6);
+}
+
+.login-container button:active {
+  transform: translateY(0);
+}
+
+/* Fade animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
