@@ -18,7 +18,7 @@ if (empty($matkul_id)) {
 }
 
 $sql = "
-SELECT 
+SELECT
     m.MAHASISWA_ID,
     m.NIM,
     m.NAMA_LENGKAP,
@@ -26,20 +26,18 @@ SELECT
     NVL(SUM(CASE WHEN a.STATUS_KEHADIRAN = 'Alpa' THEN 1 ELSE 0 END), 0) AS ALPA,
     NVL(n.NILAI_AKHIR, 0) AS NILAI_AKHIR,
     NVL(n.GRADE, '-') AS GRADE
-FROM MAHASISWA m
-LEFT JOIN NILAI n 
-    ON m.MAHASISWA_ID = n.MAHASISWA_ID 
-    AND n.MATKUL_ID = :matkul_id
-LEFT JOIN JADWAL_KULIAH j 
-    ON j.MATKUL_ID = :matkul_id
+FROM NILAI n
+JOIN MAHASISWA m ON m.MAHASISWA_ID = n.MAHASISWA_ID
+LEFT JOIN JADWAL_KULIAH j ON j.MATKUL_ID = n.MATKUL_ID
 LEFT JOIN ABSENSI a 
-    ON a.MAHASISWA_ID = m.MAHASISWA_ID 
-    AND a.JADWAL_ID = j.JADWAL_ID
-GROUP BY 
-    m.MAHASISWA_ID, 
-    m.NIM, 
-    m.NAMA_LENGKAP, 
-    n.NILAI_AKHIR, 
+       ON a.MAHASISWA_ID = m.MAHASISWA_ID
+      AND a.JADWAL_ID = j.JADWAL_ID
+WHERE n.MATKUL_ID = :matkul_id
+GROUP BY
+    m.MAHASISWA_ID,
+    m.NIM,
+    m.NAMA_LENGKAP,
+    n.NILAI_AKHIR,
     n.GRADE
 ORDER BY m.NAMA_LENGKAP
 ";
@@ -51,20 +49,17 @@ oci_execute($stid);
 $rows = [];
 while ($r = oci_fetch_assoc($stid)) {
     $rows[] = [
-        "MAHASISWA_ID"  => $r["MAHASISWA_ID"],
-        "NIM"           => $r["NIM"],
-        "NAMA_LENGKAP"  => $r["NAMA_LENGKAP"],
-        "HADIR"         => isset($r["HADIR"]) ? (int)$r["HADIR"] : 0,
-        "ALPA"          => isset($r["ALPA"]) ? (int)$r["ALPA"] : 0,
-        "NILAI_AKHIR"   => isset($r["NILAI_AKHIR"]) ? (float)$r["NILAI_AKHIR"] : 0,
-        "GRADE"         => $r["GRADE"] ?? '-'
+        "MAHASISWA_ID" => $r["MAHASISWA_ID"],
+        "NIM" => $r["NIM"],
+        "NAMA_LENGKAP" => $r["NAMA_LENGKAP"],
+        "HADIR" => (int)$r["HADIR"],
+        "ALPA" => (int)$r["ALPA"],
+        "NILAI_AKHIR" => (float)$r["NILAI_AKHIR"],
+        "GRADE" => $r["GRADE"]
     ];
 }
 
-echo json_encode([
-    "success" => true,
-    "data" => $rows
-]);
+echo json_encode(["success" => true, "data" => $rows]);
 
 oci_free_statement($stid);
 oci_close($conn);
