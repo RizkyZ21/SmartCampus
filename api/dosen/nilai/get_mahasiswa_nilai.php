@@ -21,11 +21,13 @@ $sql = "SELECT
             m.MAHASISWA_ID,
             m.NIM,
             m.NAMA_LENGKAP,
+            n.NILAI_ID,
             NVL(n.NILAI_TUGAS, 0) AS NILAI_TUGAS,
             NVL(n.NILAI_UTS, 0) AS NILAI_UTS,
             NVL(n.NILAI_UAS, 0) AS NILAI_UAS,
             NVL(n.NILAI_AKHIR, 0) AS NILAI_AKHIR,
-            NVL(n.GRADE, '-') AS GRADE
+            NVL(n.GRADE, '-') AS GRADE,
+            NVL(n.STATUS, 'BELUM_LULUS') AS STATUS
         FROM MAHASISWA m
         LEFT JOIN NILAI n ON m.MAHASISWA_ID = n.MAHASISWA_ID AND n.MATKUL_ID = :matkul_id
         WHERE m.STATUS = 'Aktif'

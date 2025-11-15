@@ -40,7 +40,7 @@ async function loadMatkul() {
 
 async function loadNilai(matkulId) {
   const tbody = document.getElementById("nilaiTable");
-  tbody.innerHTML = `<tr><td colspan="9">Memuat data...</td></tr>`;
+  tbody.innerHTML = `<tr><td colspan="10">Memuat data...</td></tr>`;
 
   try {
     const res = await fetch(baseUrl + "get_mahasiswa_nilai.php", {
@@ -66,14 +66,18 @@ async function loadNilai(matkulId) {
           <td>
             <button onclick="simpanNilai(${mhs.MAHASISWA_ID}, ${matkulId})">Simpan</button>
           </td>
+          <td id="status_${mhs.MAHASISWA_ID}">
+            <button onclick="ubahStatusNilai(${mhs.NILAI_ID}, 'LULUS')">Lulus</button>
+            <button onclick="ubahStatusNilai(${mhs.NILAI_ID}, 'GAGAL')">Tidak Lulus</button>
+          </td>
         `;
         tbody.appendChild(tr);
       });
     } else {
-      tbody.innerHTML = `<tr><td colspan="9">Tidak ada mahasiswa terdaftar</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="10">Tidak ada mahasiswa terdaftar</td></tr>`;
     }
   } catch {
-    tbody.innerHTML = `<tr><td colspan="9">Gagal memuat data nilai</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="10">Gagal memuat data nilai</td></tr>`;
   }
 }
 
@@ -119,5 +123,24 @@ async function simpanNilai(mahasiswa_id, matkul_id) {
     alert(data.message);
   } catch (err) {
     alert("Gagal menyimpan nilai: " + err.message);
+  }
+}
+
+async function ubahStatusNilai(nilai_id, status) {
+  try {
+    const res = await fetch(baseUrl + "ubah_status.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ nilai_id, status }),
+    });
+
+    const data = await res.json();
+    alert(data.message);
+
+    const matkulId = document.getElementById("matkulSelect").value;
+    loadNilai(matkulId);
+
+  } catch (err) {
+    alert("Gagal mengubah status nilai");
   }
 }

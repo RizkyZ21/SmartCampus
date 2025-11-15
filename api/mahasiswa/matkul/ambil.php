@@ -8,14 +8,18 @@ oci_execute(oci_parse($conn, "ALTER SESSION SET CURRENT_SCHEMA=UAS"));
 
 $data = json_decode(file_get_contents("php://input"), true);
 $mahasiswa_id = $data["mahasiswa_id"] ?? null;
-$matkul_id = $data["matkul_id"] ?? null;
+$matkul_id    = $data["matkul_id"] ?? null;
 
 if (!$mahasiswa_id || !$matkul_id) {
     echo json_encode(["success" => false, "message" => "Data tidak lengkap."]);
     exit;
 }
 
-$cek = oci_parse($conn, "SELECT 1 FROM NILAI WHERE MAHASISWA_ID = :mid AND MATKUL_ID = :mkid");
+// CEK APA SUDAH PERNAH DIAMBIL
+$cek = oci_parse($conn, "
+    SELECT 1 FROM NILAI 
+    WHERE MAHASISWA_ID = :mid AND MATKUL_ID = :mkid
+");
 oci_bind_by_name($cek, ":mid", $mahasiswa_id);
 oci_bind_by_name($cek, ":mkid", $matkul_id);
 oci_execute($cek);
@@ -25,9 +29,18 @@ if (oci_fetch($cek)) {
     exit;
 }
 
+// INSERT TANPA MENAMBAH SKS—STATUS AWAL BELUM LULUS
 $sql = "
-INSERT INTO NILAI (NILAI_ID, MAHASISWA_ID, MATKUL_ID, TAHUN_AJARAN, NILAI_TUGAS, NILAI_UTS, NILAI_UAS, NILAI_AKHIR, STATUS, CREATED_AT)
-VALUES (SEQ_NILAI.NEXTVAL, :mid, :mkid, '2025/2026', NULL, NULL, NULL, NULL, 'Aktif', SYSDATE)
+    INSERT INTO NILAI (
+        NILAI_ID, MAHASISWA_ID, MATKUL_ID,
+        TAHUN_AJARAN, NILAI_TUGAS, NILAI_UTS, NILAI_UAS,
+        NILAI_AKHIR, STATUS, CREATED_AT
+    )
+    VALUES (
+        SEQ_NILAI.NEXTVAL, :mid, :mkid,
+        '2025/2026', NULL, NULL, NULL,
+        NULL, 'BELUM_LULUS', SYSDATE
+    )
 ";
 
 $stmt = oci_parse($conn, $sql);

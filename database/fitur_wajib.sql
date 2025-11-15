@@ -10,31 +10,37 @@ END;
 
 -- Trigger update otomatis SKS
 CREATE OR REPLACE TRIGGER trg_update_sks_mahasiswa
-AFTER INSERT OR DELETE ON NILAI
+AFTER UPDATE OF STATUS ON NILAI
 FOR EACH ROW
 DECLARE
-  v_total NUMBER;
-  v_mhs_id NUMBER;
+  v_sks NUMBER;
 BEGIN
-  IF INSERTING THEN
-    v_mhs_id := :NEW.MAHASISWA_ID;
-  ELSE
-    v_mhs_id := :OLD.MAHASISWA_ID;
+  -- Ambil SKS mata kuliah
+  SELECT SKS INTO v_sks
+  FROM MATA_KULIAH
+  WHERE MATKUL_ID = :NEW.MATKUL_ID;
+
+  ----------------------------------------------------
+  -- 1. STATUS berubah dari BUKAN LULUS → LULUS
+  ----------------------------------------------------
+  IF :NEW.STATUS = 'LULUS' AND :OLD.STATUS != 'LULUS' THEN
+    UPDATE MAHASISWA
+    SET TOTAL_SKS = NVL(TOTAL_SKS, 0) + v_sks
+    WHERE MAHASISWA_ID = :NEW.MAHASISWA_ID;
   END IF;
 
-  SELECT NVL(SUM(mk.SKS), 0)
-  INTO v_total
-  FROM NILAI n
-  JOIN MATA_KULIAH mk ON n.MATKUL_ID = mk.MATKUL_ID
-  WHERE n.MAHASISWA_ID = v_mhs_id;
+  ----------------------------------------------------
+  -- 2. STATUS berubah dari LULUS → TIDAK LULUS / GAGAL
+  ----------------------------------------------------
+  IF :OLD.STATUS = 'LULUS' AND :NEW.STATUS != 'LULUS' THEN
+    UPDATE MAHASISWA
+    SET TOTAL_SKS = NVL(TOTAL_SKS, 0) - v_sks
+    WHERE MAHASISWA_ID = :NEW.MAHASISWA_ID;
+  END IF;
 
-  UPDATE MAHASISWA
-  SET TOTAL_SKS = v_total
-  WHERE MAHASISWA_ID = v_mhs_id;
 END;
 /
 SHOW ERRORS;
-
 
 ------------------------------------------------------------
 -- 2️⃣ VIEW : GABUNGAN DOSEN, MATA KULIAH, DAN JUMLAH KEHADIRAN
