@@ -1,83 +1,199 @@
+/* =========================================================
+   GLOBAL THEME SMARTCAMPUS MAHASISWA
+   ========================================================= */
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #eef3f9;
   display: flex;
   height: 100vh;
 }
 
+/* =========================================================
+   UNIVERSAL SIDEBAR
+   ========================================================= */
 .sidebar {
-  width: 220px;
-  background: #2c3e50;
+  width: 240px;
+  background: linear-gradient(180deg, #1e3a8a, #3b82f6);
   color: white;
-  padding: 20px;
+  padding: 30px 22px;
+  box-shadow: 6px 0 18px rgba(0,0,0,0.15);
+  backdrop-filter: blur(10px);
+  border-right: 1px solid rgba(255,255,255,0.2);
 }
 
 .sidebar h2 {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 28px;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: .5px;
 }
 
 .sidebar ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .sidebar ul li {
-  margin: 15px 0;
+  margin: 18px 0;
 }
 
 .sidebar ul li a {
   color: white;
   text-decoration: none;
+  padding: 12px 15px;
+  display: block;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  transition: .25s ease;
 }
 
 .sidebar ul li a:hover {
-  text-decoration: underline;
+  background: rgba(255,255,255,0.25);
+  transform: translateX(8px);
+  box-shadow: 0 6px 20px rgba(255,255,255,0.2);
 }
 
+.sidebar ul li a.active {
+  background: rgba(255,255,255,0.35);
+  border-left: 4px solid #fff;
+  transform: translateX(5px);
+  box-shadow: 0 8px 25px rgba(255,255,255,0.3);
+  font-weight: 600;
+}
+
+/* =========================================================
+   CONTENT AREA (FULL WIDTH FIX)
+   ========================================================= */
 .content {
   flex: 1;
-  padding: 20px;
-  background: #ecf0f1;
+  padding: 40px 50px 40px 40px;
+  background: #eef3f9;
+
+  display: flex;
+  flex-direction: column;
+
+  /* FIX PALING PENTING → BIAR FULL SAMPAI KANAN */
+  width: calc(100% - 240px);
+
+  /* Biar child elements (tabel, section) melebar penuh */
+  align-items: stretch;
+
+  animation: fadeIn .4s ease;
 }
 
-.table-container {
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================================
+   TABLE WRAPPER (PERLEBAR FULL)
+   ========================================================= */
+.table-container,
+section table {
   background: white;
-  padding: 15px;
-  border-radius: 8px;
+  padding: 0;
+  border-radius: 14px !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  overflow: hidden;
+
+  width: 100%;       /* FULL WIDTH */
+  max-width: 100%;   /* HAPUS LIMIT */
+
+  margin-top: 25px;
 }
 
+/* =========================================================
+   TABLE STYLE
+   ========================================================= */
 table {
   width: 100%;
   border-collapse: collapse;
 }
 
-th, td {
-  border: 1px solid #ccc;
-  padding: 8px;
-  text-align: left;
-}
-
 th {
-  background: #34495e;
+  background: #1e3a8a;
   color: white;
+  padding: 14px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  border: none !important;
 }
 
+td {
+  padding: 12px;
+  font-size: 14px;
+  background: white;
+  text-align: center;
+  border-bottom: 1px solid #e5e7eb !important;
+}
+
+tr:last-child td {
+  border-bottom: none !important;
+}
+
+tr:hover td {
+  background: #eef4ff;
+}
+
+table, th, td {
+  border: none !important;
+}
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
 button {
-  background: #2c3e50;
+  background: #2563eb;
   color: white;
   border: none;
-  padding: 6px 10px;
-  border-radius: 5px;
+  padding: 8px 14px;
+  border-radius: 8px;
   cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: .25s ease;
 }
 
 button:hover {
-  background: #34495e;
+  background: #1d4ed8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(29,78,216,0.25);
 }
 
-.action-btns {
-  display: flex;
-  gap: 5px;
+/* =========================================================
+   SPECIAL ELEMENTS (nilai, laporan)
+   ========================================================= */
+.rata-rata-box {
+  margin-top: 18px;
+  padding: 14px 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  font-size: 15px;
+  width: 100%;
+  text-align: left;
 }
 
+input.inputNilai {
+  width: 70px;
+  padding: 7px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #f8fafc;
+  text-align: center;
+  transition: 0.25s ease;
+  font-size: 14px;
+}
+
+input.inputNilai:focus {
+  border-color: #3b82f6;
+  background: #ffffff;
+  box-shadow: 0 0 6px rgba(59,130,246,0.3);
+  outline: none;
+}
