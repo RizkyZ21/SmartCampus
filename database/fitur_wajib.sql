@@ -15,23 +15,16 @@ FOR EACH ROW
 DECLARE
   v_sks NUMBER;
 BEGIN
-  -- Ambil SKS mata kuliah
   SELECT SKS INTO v_sks
   FROM MATA_KULIAH
   WHERE MATKUL_ID = :NEW.MATKUL_ID;
 
-  ----------------------------------------------------
-  -- 1. STATUS berubah dari BUKAN LULUS → LULUS
-  ----------------------------------------------------
   IF :NEW.STATUS = 'LULUS' AND :OLD.STATUS != 'LULUS' THEN
     UPDATE MAHASISWA
     SET TOTAL_SKS = NVL(TOTAL_SKS, 0) + v_sks
     WHERE MAHASISWA_ID = :NEW.MAHASISWA_ID;
   END IF;
 
-  ----------------------------------------------------
-  -- 2. STATUS berubah dari LULUS → TIDAK LULUS / GAGAL
-  ----------------------------------------------------
   IF :OLD.STATUS = 'LULUS' AND :NEW.STATUS != 'LULUS' THEN
     UPDATE MAHASISWA
     SET TOTAL_SKS = NVL(TOTAL_SKS, 0) - v_sks
@@ -42,10 +35,7 @@ END;
 /
 SHOW ERRORS;
 
-------------------------------------------------------------
--- 2️⃣ VIEW : GABUNGAN DOSEN, MATA KULIAH, DAN JUMLAH KEHADIRAN
-------------------------------------------------------------
-
+-- VIEW : GABUNGAN DOSEN, MATA KULIAH, DAN JUMLAH KEHADIRAN
 CREATE OR REPLACE VIEW v_dosen_matkul_kehadiran AS
 SELECT 
     d.NAMA_LENGKAP AS NAMA_DOSEN,
@@ -60,11 +50,7 @@ GROUP BY d.NAMA_LENGKAP, mk.NAMA_MATKUL;
 /
 SHOW ERRORS;
 
-
-------------------------------------------------------------
--- 3️⃣ PROCEDURE : REKAP NILAI & STATUS KELULUSAN OTOMATIS
-------------------------------------------------------------
-
+-- PROCEDURE : REKAP NILAI & STATUS KELULUSAN OTOMATIS
 CREATE OR REPLACE PROCEDURE sp_rekap_nilai(
     p_mahasiswa_id IN NUMBER,
     p_matkul_id IN NUMBER
@@ -107,16 +93,10 @@ END;
 /
 SHOW ERRORS;
 
-
-------------------------------------------------------------
--- 4️⃣ INDEX UNTUK EFISIENSI QUERY
-------------------------------------------------------------
-
+-- INDEX UNTUK EFISIENSI QUERY
 CREATE INDEX idx_mahasiswa_nim ON MAHASISWA (NIM);
 CREATE INDEX idx_matkul_kode ON MATA_KULIAH (KODE_MATKUL);
 /
 
-------------------------------------------------------------
 -- SELESAI ✅
-------------------------------------------------------------
 PROMPT SmartCampus fitur wajib berhasil dibuat!
