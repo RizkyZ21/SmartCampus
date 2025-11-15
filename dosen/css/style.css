@@ -1,6 +1,3 @@
-/* =========================================================
-   GLOBAL THEME SMARTCAMPUS DOSEN
-   ========================================================= */
 body {
   margin: 0;
   font-family: "Segoe UI", Arial, sans-serif;
@@ -9,16 +6,12 @@ body {
   display: flex;
 }
 
-/* Wrapper untuk layout */
 .wrapper {
   display: flex;
   width: 100%;
   min-height: 100vh;
 }
 
-/* =========================================================
-   UNIVERSAL SIDEBAR
-   ========================================================= */
 .sidebar {
   width: 240px;
   background: linear-gradient(180deg, #1e3a8a, #3b82f6);
@@ -57,14 +50,12 @@ body {
   transition: 0.25s ease;
 }
 
-/* Hover */
 .sidebar ul li a:hover {
   background: rgba(255,255,255,0.25);
   transform: translateX(8px);
   box-shadow: 0 6px 20px rgba(255,255,255,0.2);
 }
 
-/* Active */
 .sidebar ul li a.active {
   background: rgba(255,255,255,0.35);
   border-left: 4px solid #fff;
@@ -72,9 +63,6 @@ body {
   box-shadow: 0 8px 25px rgba(255,255,255,0.3);
 }
 
-/* =========================================================
-   CONTENT AREA
-   ========================================================= */
 .content {
   flex: 1;
   padding: 40px;
@@ -89,7 +77,6 @@ body {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Headings */
 .content h1 {
   margin-top: 0;
   font-size: 30px;
@@ -102,9 +89,6 @@ body {
   color: #1e293b;
 }
 
-/* =========================================================
-   TABLE CONTAINER (universal)
-   ========================================================= */
 .table-container {
   background: white;
   padding: 0;
@@ -116,7 +100,6 @@ body {
   box-shadow: 0 4px 14px rgba(0,0,0,0.12);
 }
 
-/* Table */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -144,9 +127,6 @@ tr:hover td {
   background: #eef4ff;
 }
 
-/* =========================================================
-   BUTTON UNIVERSAL
-   ========================================================= */
 button,
 .actions button {
   background: #2563eb;
@@ -166,16 +146,12 @@ button:hover {
   box-shadow: 0 4px 12px rgba(29,78,216,0.3);
 }
 
-/* Button group spacing */
 .actions {
   margin: 15px 0;
   display: flex;
   gap: 12px;
 }
 
-/* =========================================================
-   DASHBOARD CARDS (Total Matkul & Mahasiswa)
-   ========================================================= */
 .cards {
   display: flex;
   gap: 20px;
@@ -199,17 +175,12 @@ button:hover {
   cursor: pointer;
 }
 
-/* Hover Effect */
 .card:hover {
   transform: translateY(-6px);
   box-shadow: 0 8px 22px rgba(0,0,0,0.18);
   background: #f8fbff;
 }
 
-
-/* =========================================================
-   SELECT UNIVERSAL
-   ========================================================= */
 select {
   padding: 10px 14px;
   border-radius: 10px;
@@ -225,9 +196,6 @@ select:focus {
   box-shadow: 0 0 6px rgba(59,130,246,0.35);
 }
 
-/* =========================================================
-   INPUT NILAI (khusus halaman nilai)
-   ========================================================= */
 input.inputNilai {
   width: 70px;
   padding: 7px;
@@ -245,9 +213,6 @@ input.inputNilai:focus {
   box-shadow: 0 0 6px rgba(59,130,246,0.3);
 }
 
-/* =========================================================
-   RATA-RATA BOX
-   ========================================================= */
 .rata-rata-box {
   margin-top: 18px;
   padding: 16px 22px;

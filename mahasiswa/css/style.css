@@ -1,6 +1,3 @@
-/* =========================================================
-   GLOBAL THEME SMARTCAMPUS MAHASISWA
-   ========================================================= */
 body {
   margin: 0;
   font-family: "Segoe UI", Arial, sans-serif;
@@ -9,9 +6,6 @@ body {
   height: 100vh;
 }
 
-/* =========================================================
-   UNIVERSAL SIDEBAR
-   ========================================================= */
 .sidebar {
   width: 240px;
   background: linear-gradient(180deg, #1e3a8a, #3b82f6);
@@ -65,9 +59,6 @@ body {
   font-weight: 600;
 }
 
-/* =========================================================
-   CONTENT AREA (FULL WIDTH FIX)
-   ========================================================= */
 .content {
   flex: 1;
   padding: 40px 50px 40px 40px;
@@ -76,10 +67,8 @@ body {
   display: flex;
   flex-direction: column;
 
-  /* FIX PALING PENTING → BIAR FULL SAMPAI KANAN */
   width: calc(100% - 240px);
 
-  /* Biar child elements (tabel, section) melebar penuh */
   align-items: stretch;
 
   animation: fadeIn .4s ease;
@@ -90,9 +79,6 @@ body {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* =========================================================
-   TABLE WRAPPER (PERLEBAR FULL)
-   ========================================================= */
 .table-container,
 section table {
   background: white;
@@ -101,15 +87,12 @@ section table {
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   overflow: hidden;
 
-  width: 100%;       /* FULL WIDTH */
-  max-width: 100%;   /* HAPUS LIMIT */
+  width: 100%;
+  max-width: 100%;
 
   margin-top: 25px;
 }
 
-/* =========================================================
-   TABLE STYLE
-   ========================================================= */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -145,9 +128,6 @@ table, th, td {
   border: none !important;
 }
 
-/* =========================================================
-   BUTTONS
-   ========================================================= */
 button {
   background: #2563eb;
   color: white;
@@ -166,9 +146,6 @@ button:hover {
   box-shadow: 0 4px 12px rgba(29,78,216,0.25);
 }
 
-/* =========================================================
-   SPECIAL ELEMENTS (nilai, laporan)
-   ========================================================= */
 .rata-rata-box {
   margin-top: 18px;
   padding: 14px 20px;
